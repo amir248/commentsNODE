@@ -1,0 +1,41 @@
+[
+  {
+    "userName": "comments boot",
+    "message": "Hello world, it's first comment!",
+    "date": "2025-08-12T07:27:52.232Z",
+    "idea": {
+      "id": "id",
+      "site": {
+        "href": "localhostBot",
+        "origin": "test",
+        "protocol": "https:",
+        "host": "localhost",
+        "hostname": "localhost",
+        "port": "undefined",
+        "pathname": "oK",
+        "search": "",
+        "hash": ""
+      }
+    }
+  },
+  {
+    "userName": "-wind-",
+    "message": "turn off on scype",
+    "date": "2025-08-12T07:33:07.013Z",
+    "idea": {
+      "id": "blozhik",
+      "site": {
+        "ancestorOrigins": {},
+        "href": "https://qucu.ru/blozhik/disable-skype-auto-download",
+        "origin": "https://qucu.ru",
+        "protocol": "https:",
+        "host": "qucu.ru",
+        "hostname": "qucu.ru",
+        "port": "",
+        "pathname": "/blozhik/disable-skype-auto-download",
+        "search": "",
+        "hash": ""
+      }
+    }
+  }
+]

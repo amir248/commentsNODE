@@ -1,0 +1,41 @@
+[
+  {
+    "userName": "comments boot",
+    "message": "Hello world, it's first comment!",
+    "date": "2025-08-12T07:55:37.318Z",
+    "idea": {
+      "id": "id",
+      "site": {
+        "href": "localhostBot",
+        "origin": "test",
+        "protocol": "https:",
+        "host": "localhost",
+        "hostname": "localhost",
+        "port": "undefined",
+        "pathname": "oK",
+        "search": "",
+        "hash": ""
+      }
+    }
+  },
+  {
+    "userName": "o_O",
+    "message": " how my superhero glasses shine? )))",
+    "date": "2025-08-12T08:00:24.694Z",
+    "idea": {
+      "id": "a000",
+      "site": {
+        "ancestorOrigins": {},
+        "href": "https://qucu.ru/",
+        "origin": "https://qucu.ru",
+        "protocol": "https:",
+        "host": "qucu.ru",
+        "hostname": "qucu.ru",
+        "port": "",
+        "pathname": "/",
+        "search": "",
+        "hash": ""
+      }
+    }
+  }
+]

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><%- oK %></h1>
+    <main>
+        <button>onClicker()</button>
+    </main>
+    <script>
+        function onClicker(){
+            fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const ip = data.ip;
+
+                // Отправляем IP на сервер
+                return fetch('https://comments.qucu.ru/getIp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ip: ip })
+                });
+            })
+            .then(response => {
+                if (!response.ok) throw new Error("Ошибка отправки IP");
+                return response.text(); // или .json(), если сервер возвращает JSON
+            })
+            .then(result => {
+                console.log("Ответ сервера:", result);
+            })
+            .catch(error => {
+                console.error("Ошибка:", error);
+            });
+            console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxxxx' );
+            }
+            onClicker();
+        document.querySelector('button').addEventListener("click",onClicker);
+    </script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title><%=title%></title>
+    <!-- /comments -->
+    <link rel="stylesheet" href="/style/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name='description' content='<%= description %>'>
+    <link rel="shortcut icon" href="/images/ico.svg">
+    <!-- Разметка JSON-LD, созданная Мастером разметки структурированных данных Google. -->
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "name": "Comments",
+  "headline": "sustem comments",
+  "author" : {
+    "@type" : "Person",
+    "name" : "Amir Navrutdinov",
+    "alternateName": ["Amir Shikarno", "Амир Наврутдинов"],
+    "url" : "https://qucu.ru/resume/resume.html"
+  },
+  "datePublished": "2023-04-07",
+  "dateModified":"2023-07-02",
+  "image": "https://qucu.ru/comments/images/great-job.png",
+  "articleSection": "Супер шикарная система комментаривев",
+  "articleBody": "Эта система комментариев без записи в базу данных. Сообщения записываются массивом в документ json форматa. После чего отправляются с сервера обратно в документ. С использованием одного только javascript. Как говорится в пословице: &quot;все гениальное просто&quot;. Рабочую систему комментариев можно скачать по ссылки с моего гитхаба https://github.com/amir248/comments Вот вам пожалуйста рабочая система комментариев в открытом доступе, это не то что условно бесплатная система комментариев как &quot;дискус&quot;. Сначало она бесплатная, а потом загромаждает все поля видимости жесточайшими ракламными блоками.",
+  "url": "https://qucu.ru/comments/",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "веб мастерская имени Барона Сайтоверстаузена",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://qucu.ru/comments/"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://qucu.ru/comments/"
+    }
+  }
+  }
+  </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CTRLNMFNGY"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-CTRLNMFNGY');
+    </script>
+
+  </head>
+  <body>
+    <main>
+      <article>
+        <h1><%=title%></h1>
+        <p><%=text%></p>
+        <strong><%=warnings%></strong>
+        <ul>
+          <li>
+            <strong>FETCH</strong>
+          </li>
+          <li>
+            <strong>WebSocket</strong>
+          </li>
+        </ul>
+
+        <div style='width:900px; max-width:100%; border:3px black solid;border-radius: 5px;'>
+          Comments:
+          <form action="/comments" method="POST" name='registerForm'>
+            <input type="text" name="userName" value="" placeholder='userName'><br>
+            <textarea name="message" value="message" cols='28' placeholder="to new messages"></textarea><br>
+            <span id="date" name="date" value="" placeholder='date'></span><br>
+            <button type="submit" name="button" id='submit'>go to</button>
+            <span style='color:red;'>login > 4 and text > 7 symbol</span>
+
+          </form>
+        </div>
+        <div id="com"></div>
+        <script type="text/javascript">
+
+        document.getElementById('submit').addEventListener('click',(e)=>{
+          e.preventDefault();
+          // newComment();
+          // получаем данные формы
+          let registerForm = document.forms['registerForm']
+          let userName=registerForm.elements['userName'].value
+          let message=registerForm.elements['message'].value
+          // let date=registerForm.elements['date'].value
+          // сериализуем данные в json
+          let user = JSON.stringify({
+            userName: userName,
+            message: message,
+            date: new Date(),
+          })
+          let request = new XMLHttpRequest()
+          // посылаем запрос на адрес "/user"
+          request.open('POST', '/comments', true)
+          request.setRequestHeader(
+            'Content-Type',
+            'application/json'
+          )
+          // console.log(request);
+          request.addEventListener('load', function () {
+            // получаем и парсим ответ сервера
+            let receivedUser = JSON.parse(request.response);
+            // console.log(request);
+            // console.log(response);
+            console.log(receivedUser.userName,'-',receivedUser.message,' - ',receivedUser.date
+          ) // смотрим ответ сервера
+        })
+        request.send(user);
+      });
+
+      //put comments
+      const put3='json/message.json';
+      // newComment();
+      function newComment(){
+        fetch(put3)
+        .then(response=>response.json())
+        // .then(ok=>document.getElementById("com").innerHTML = JSON.stringify(ok))
+        .then(message=>{
+          let count=message.length;
+          // console.log(count);
+          let num=-1+count+0;
+          // console.log(num);
+          for(num;num>=0;num--){
+            // console.log(message[num]['userName']);
+            // console.log(message[num]['message']);
+            // console.log(message[num]['date']);
+            let newUser=document.createElement('p');
+            newUser.innerHTML="<div style='color:red;float:left;font-size:25px;'><span style='color:orange;font-size:20px;'>NickName: </span>"+message[num]['userName']+"</div>";
+            document.querySelector('article').append(newUser);
+            let newMessage=document.createElement('p');
+            newMessage.innerHTML="<div style='color:grey;font-size:20px;'><span style='color:green;font-size:20px;'>Message: </span>"+message[num]['message']+"</div>";
+            document.querySelector('article').append(newMessage);
+            let newDate=document.createElement('p');
+            newDate.innerHTML="<div style='color:blue;float:right;'><span style='color:violet;font-size:18px;'>Date: </span>"+message[num]['date']+"</div>";
+            document.querySelector('article').append(newDate);
+          }
+          document.querySelector('#date').innerHTML="<p style='border:1px solid lightgray; border-radius:2px;'>"+`${new Date()}`+"</p>";
+        });
+      }//newComment
+      function loadingMethod(){
+        if(window.location.hash=='#WebSocket'){
+          console.log(window.location.hash);
+          goWebSocket();
+          keyTestSubject();
+        }else if(window.location.hash=='#FETCH'){
+          console.log(window.location.hash);
+          newComment();
+          keyTestSubject();
+        }else{
+          console.log('ELSE!!!!');
+          newComment();
+          keyTestSubject();
+        }
+      }
+      document.addEventListener('DOMContentLoaded',()=>{
+        console.log(window.location.hash);
+        // newComment();
+        // keyTestSubject();
+        loadingMethod();
+      });
+      document.querySelector('body > main:nth-child(1) > article:nth-child(1) > ul:nth-child(4) > li:nth-child(1) > strong:nth-child(1)').addEventListener('click',()=>{
+        window.location.hash='#FETCH';
+        loadingMethod();
+      });
+      document.querySelector('body > main:nth-child(1) > article:nth-child(1) > ul:nth-child(4) > li:nth-child(2) > strong:nth-child(1)').addEventListener('click',()=>{
+        window.location.hash='#WebSocket';
+        loadingMethod();
+      });
+      //------------------------------------------------------------------------
+
+      document.querySelector('#submit').addEventListener('click',()=>{
+        console.log('click');
+        newComment();
+        // window.location.reload();
+        setInterval(()=>window.location.href='/comments',1000);
+      });
+      // setInterval(()=>newComment(),300);
+
+      let testSubject=document.querySelector('input[type=text]').value.length>3||document.querySelector('textarea').value.length>7;
+      function keyDown(){
+        document.querySelector('form').addEventListener('keydown',()=>{
+          keyTestSubject();
+        });
+      }//keyDown
+      keyDown();
+      function keyTestSubject(){
+        if(document.querySelector('input[type=text]').value.length>2&&document.querySelector('textarea').value.length>7){
+          document.querySelector('#submit').disabled=false;
+        }else{
+          document.querySelector('#submit').disabled=true;
+        }
+        if(document.querySelector('input[type=text]').value.length>2){
+          document.querySelector('input[type=text]').style.cssText=`background:rgba(0,255.0,0.3)`;
+        }else{
+          document.querySelector('input[type=text]').style.cssText=`background:rgba(255,0.0,0.3)`;
+        }
+        if(document.querySelector('textarea').value.length>7){
+          document.querySelector('textarea').style.cssText=`background:rgba(0,255.0,0.3)`;
+        }else{
+          document.querySelector('textarea').style.cssText=`background:rgba(255,0.0,0.3)`;
+        }
+      }//keyTestSubject
+
+      document.querySelector('button').addEventListener('click',()=>{
+        document.querySelector('#submit').disabled=true;
+      });
+
+      function goWebSocket(){
+        let ws = new WebSocket("ws://localhost:3770/comments");
+        ws.onmessage = ({data}) => {
+          // data = message;
+          console.log(data);
+          let message = JSON.parse(data);
+          console.log(message);
+            let count=message.length;
+            let num=-1+count+0;
+
+          for(num;num>=0;num--){
+             console.log(message[num]['userName']);
+             console.log(message[num]['message']);
+             console.log(message[num]['date']);
+             let newUser=document.createElement('p');
+             newUser.innerHTML="<div style='color:red;float:left;font-size:25px;'><span style='color:orange;font-size:20px;'>NickName: </span>"+message[num]['userName']+"</div>";
+             document.querySelector('article').append(newUser);
+             let newMessage=document.createElement('p');
+             newMessage.innerHTML="<div style='color:grey;font-size:20px;'><span style='color:green;font-size:20px;'>Message: </span>"+message[num]['message']+"</div>";
+             document.querySelector('article').append(newMessage);
+             let newDate=document.createElement('p');
+             newDate.innerHTML="<div style='color:blue;float:right;'><span style='color:violet;font-size:18px;'>Date: </span>"+message[num]['date']+"</div>";
+             document.querySelector('article').append(newDate);
+           }
+           // document.querySelector('#date').innerHTML="<p style='border:1px solid lightgray; border-radius:2px;'>"+`${new Date()}`+"</p>";
+        }//ws.onmessage
+      }
+        </script>
+      </article>
+      <img src="/images/excellent-work.png" alt="">
+      <img src="/images/great-job.png" alt="">
+    </main>
+  </body>
+</html>

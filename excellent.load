@@ -1,0 +1,17 @@
+LOAD DATABASE
+     FROM mysql://qucu:Gfhjkm123@192.168.1.10/excellent
+     INTO postgresql://postgres:POSTGRES_PASSWORD@localhost/excellent
+
+ WITH include no drop,
+      create tables,
+      create indexes,
+      reset sequences
+
+ SET work_mem to '16MB',
+     maintenance_work_mem to '512 MB',
+     search_path to 'public'
+
+ CAST type datetime to timestamptz
+      using zero-dates-to-null
+;
+

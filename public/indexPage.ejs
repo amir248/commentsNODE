@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>comments sustem</title>
+    <!-- <link rel="stylesheet" href="/public/style/main.css">
+    <link rel="stylesheet" href="/public/style/registration.css"> -->
+    <link rel="icon" href="https://qucu.ru/img/js.svg" type="image/svg+xml">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Разметка JSON-LD, созданная Мастером разметки структурированных данных Google. -->
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "name": "Comments",
+  "headline": "sustem comments",
+  "author" : {
+    "@type" : "Person",
+    "name" : "Amir Navrutdinov",
+    "alternateName": ["Amir Shikarno", "Амир Наврутдинов"],
+    "url" : "https://qucu.ru/resume/Amir.html"
+  },
+  "datePublished": "2023-04-07",
+  "dateModified":"2025-07-30",
+  "image": "https://qucu.ru/public/images/great-job.png",
+  "articleSection": "Супер шикарная система комментаривев",
+  "articleBody": "Эта система комментариев без записи в базу данных. Сообщения записываются массивом в документ json форматa. После чего отправляются с сервера обратно в документ. С использованием одного только javascript. Как говорится в пословице: &quot;все гениальное просто&quot;. Рабочую систему комментариев можно скачать по ссылки с моего гитхаба https://github.com/amir248/comments Вот вам пожалуйста рабочая система комментариев в открытом доступе, это не то что условно бесплатная система комментариев как &quot;дискус&quot;. Сначало она бесплатная, а потом загромаждает все поля видимости жесточайшими ракламными блоками.",
+  "url": "https://comments.qucu.ru/",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "веб мастерская имени Барона Сайтоверстаузена",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://comments.qucu.ru/"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://comments.qucu.ru/"
+    }
+  }
+  }
+  </script>
+   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.5/dist/purify.min.js"></script>
+    <style media="screen">
+      *{
+        margin:0;
+      }
+      body{
+        width:900px;
+        max-width:100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      main{
+        display:flex;
+        justify-content: center;
+        align-items: baseline;
+        flex-direction: column;
+        max-width: 900px;
+        width:100%;
+      }
+      #comments{
+        width:900px;
+        max-width:100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      #comments fieldset{
+        background: rgba(0,255,0,0.1);
+        border-radius:3px;
+      }
+      body strong{
+        text-align: left;
+        background: black;
+      }
+    .oK{
+        width:100%;
+        max-width:100%;
+    }
+    .oK > div{
+       
+        width:100%;
+        max-width:100%;
+        word-break: break-all;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+</style>
+  </head>
+  <body>
+    <h1><%=title%></h1>
+    <p><%=text%></p>
+    <strong>
+ <code>
+          <div class="oK" style="color: #e1e4e8; background-color: #24292e; font-family: 'Droid Sans Mono', 'monospace', monospace; font-weight: normal; font-size: 14px;">
+          <div><span style="color: #e1e4e8;">&lt;</span><span style="color: #85e89d;">div</span><span style="color: #e1e4e8;"> </span><span style="color: #b392f0;">id</span><span style="color: #e1e4e8;">=</span><span style="color: #9ecbff;">"comments"</span><span style="color: #e1e4e8;"> </span><span style="color: #b392f0;">style</span><span style="color: #e1e4e8;">=</span><span style="color: #9ecbff;">"</span><span style="color: #9ecbff;">width:100%;max-width:100%"</span><span style="color: #e1e4e8;">&gt;&lt;/</span><span style="color: #85e89d;">div</span><span style="color: #e1e4e8;">&gt;</span></div>
+          <div><span style="color: #e1e4e8;"> &lt;</span><span style="color: #85e89d;">a</span><span style="color: #e1e4e8;"> </span><span style="color: #b392f0;">href</span><span style="color: #e1e4e8;">=</span><span style="color: #9ecbff;">"https://qucu.ru/comments/"</span><span style="color: #e1e4e8;"> </span><span style="color: #b392f0;">style</span><span style="color: #e1e4e8;">=</span><span style="color: #9ecbff;">"</span><span style="color: #9ecbff;">font-size: 17px;"</span><span style="color: #e1e4e8;">&gt;https://comments.qucu.ru/&lt;/</span><span style="color: #85e89d;">a</span><span style="color: #e1e4e8;">&gt;</span></div>
+          <div><span style="color: #e1e4e8;"> &lt;</span><span style="color: #85e89d;">script</span><span style="color: #e1e4e8;"> </span><span style="color: #b392f0;">type</span><span style="color: #e1e4e8;">=</span><span style="color: #9ecbff;">"text/javascript"</span><span style="color: #e1e4e8;">&gt;</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">const</span><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">site</span><span style="color: #f97583;">=</span><span style="color: #e1e4e8;">{</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">origin</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">'https://exampleSite.vru/'</span><span style="color: #e1e4e8;">,</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">referrer</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">"https://exampleSite.vru/folder"</span></div>
+          <div><span style="color: #e1e4e8;"> }</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">const</span><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">importantBag</span><span style="color: #f97583;">=</span><span style="color: #e1e4e8;">{</span><span style="color: #e1e4e8;">id</span><span style="color: #e1e4e8;">:</span><span style="color: #9ecbff;">"test"</span><span style="color: #e1e4e8;">,</span><span style="color: #e1e4e8;">site</span><span style="color: #e1e4e8;">:</span><span style="color: #79b8ff;">window</span><span style="color: #e1e4e8;">.</span><span style="color: #79b8ff;">location</span><span style="color: #e1e4e8;">};</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #6a737d;">// const id='test';// important!!!</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">const</span><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">script</span><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">=</span><span style="color: #79b8ff;">document</span><span style="color: #e1e4e8;">.</span><span style="color: #b392f0;">createElement</span><span style="color: #e1e4e8;">(</span><span style="color: #9ecbff;">'script'</span><span style="color: #e1e4e8;">);</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">const</span><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">url</span><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">=</span><span style="color: #9ecbff;">'https://comments.qucu.ru/allow-cors/'</span><span style="color: #e1e4e8;">;</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">async</span><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">function</span><span style="color: #e1e4e8;"> </span><span style="color: #b392f0;">goComments</span><span style="color: #e1e4e8;">(){</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">await</span><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">fetch</span><span style="color: #e1e4e8;">(</span><span style="color: #79b8ff;">url</span><span style="color: #e1e4e8;">,{</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">headers</span><span style="color: #e1e4e8;">: {</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #9ecbff;">'Content-Type'</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">'application/json'</span><span style="color: #e1e4e8;">,</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #9ecbff;">'Access-Control-Allow-Origin'</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">'*'</span></div>
+          <div><span style="color: #e1e4e8;"> },</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">origin</span><span style="color: #e1e4e8;">:</span><span style="color: #79b8ff;">site</span><span style="color: #e1e4e8;">.</span><span style="color: #e1e4e8;">origin</span><span style="color: #e1e4e8;">,</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">method</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">"POST"</span><span style="color: #e1e4e8;">,</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">referrer</span><span style="color: #e1e4e8;">: </span><span style="color: #79b8ff;">site</span><span style="color: #e1e4e8;">.</span><span style="color: #e1e4e8;">referrer</span><span style="color: #e1e4e8;">,</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">referrerPolicy</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">"origin-when-cross-origin"</span><span style="color: #e1e4e8;">,</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">mode</span><span style="color: #e1e4e8;">:</span><span style="color: #9ecbff;">"cors"</span><span style="color: #e1e4e8;">,</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">credentials</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">"omit"</span><span style="color: #e1e4e8;">,</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">cache</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">"no-store"</span><span style="color: #e1e4e8;">,</span></div>
+          <div><span style="color: #e1e4e8;"> }).</span><span style="color: #b392f0;">then</span><span style="color: #e1e4e8;">(</span><span style="color: #ffab70;">response</span><span style="color: #f97583;">=&gt;</span><span style="color: #ffab70;">response</span><span style="color: #e1e4e8;">.</span><span style="color: #b392f0;">text</span><span style="color: #e1e4e8;">()).</span><span style="color: #b392f0;">then</span><span style="color: #e1e4e8;">(</span><span style="color: #ffab70;">result</span><span style="color: #f97583;">=&gt;</span><span style="color: #e1e4e8;">{</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">document</span><span style="color: #e1e4e8;">.</span><span style="color: #b392f0;">querySelector</span><span style="color: #e1e4e8;">(</span><span style="color: #9ecbff;">'#comments'</span><span style="color: #e1e4e8;">).</span><span style="color: #b392f0;">append</span><span style="color: #e1e4e8;">(</span><span style="color: #79b8ff;">script</span><span style="color: #e1e4e8;">);</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">let</span><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">oK</span><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">=</span><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">document</span><span style="color: #e1e4e8;">.</span><span style="color: #b392f0;">querySelector</span><span style="color: #e1e4e8;">(</span><span style="color: #9ecbff;">'#comments &gt; script'</span><span style="color: #e1e4e8;">);</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">oK</span><span style="color: #e1e4e8;">.</span><span style="color: #79b8ff;">innerHTML</span><span style="color: #f97583;">=</span><span style="color: #ffab70;">result</span><span style="color: #e1e4e8;">;</span></div>
+          <div><span style="color: #e1e4e8;"> });</span></div>
+          <div><span style="color: #e1e4e8;"> };</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">setTimeout</span><span style="color: #e1e4e8;">(()</span><span style="color: #f97583;">=&gt;</span><span style="color: #b392f0;">goComments</span><span style="color: #e1e4e8;">(),</span><span style="color: #79b8ff;">300</span><span style="color: #e1e4e8;">);</span></div>
+          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">&lt;/</span><span style="color: #85e89d;">script</span><span style="color: #e1e4e8;">&gt;</span></div>
+          </div>
+        </code>
+<a href="https://github.com/amir248/comments">GitHub</a>
+<br>
+<a href="https://github.qucu.ru/"> Example from GitHub</a>
+     </strong>
+     <!--
+      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                             Here commentsBlock!
+     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+     -->
+     <div id="comments" style="width:100%;max-width:100%"></div>
+     <a href="https://qucu.ru/comments/" style="font-size: 17px;">https://comments.qucu.ru/</a>
+     <script type="text/javascript">
+       const site={
+         origin: 'https://comments.qucu.ru/',
+         referrer: "https://comments.qucu.ru/"
+       }
+       const importantBag={id:"nasoberu",site:window.location};
+         // const id='nasoberu';// important!!!
+         const script =document.createElement('script');
+         const url ='https://comments.qucu.ru/allow-cors/';
+         async function goComments(){
+           await fetch(url,{
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            //  origin:site.origin,
+             method: "POST",
+            //  referrer: site.referrer,
+             referrerPolicy: "origin-when-cross-origin",
+             mode:"cors",
+             credentials: "include",
+             cache: "no-store",
+           }).then(response=>response.text()).then(result=>{
+             document.querySelector('#comments').append(script);
+             let oK = document.querySelector('#comments > script');
+             oK.innerHTML=result;
+           });
+         };
+         setTimeout(()=>goComments(),300);
+     </script>
+  </body>
+</html>

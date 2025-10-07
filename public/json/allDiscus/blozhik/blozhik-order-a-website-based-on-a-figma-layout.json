@@ -1,0 +1,21 @@
+[
+  {
+    "userName": "comments boot",
+    "message": "Hello world, it's first comment!",
+    "date": "2025-10-02T16:36:08.012Z",
+    "idea": {
+      "id": "id",
+      "site": {
+        "href": "localhostBot",
+        "origin": "test",
+        "protocol": "https:",
+        "host": "localhost",
+        "hostname": "localhost",
+        "port": "undefined",
+        "pathname": "oK",
+        "search": "",
+        "hash": ""
+      }
+    }
+  }
+]
