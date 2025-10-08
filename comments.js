@@ -109,7 +109,7 @@ app.set("view engine", "ejs");
 app.use(express.static('public'));
 
 app.get('/', (request, response) => {
-  response.render('indexPage', { title: 'My Express App', text: 'Hello from comments from NODE.JS!' });
+  response.render('indexPage', { title: 'My Express App', text: 'Hello from comments from NODE.JS!', userId : "7" });
 });
 app.get('/onclicker',(request,response)=>{
   response.render('onclicker',{oK: 'onClick'});

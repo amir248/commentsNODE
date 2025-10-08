@@ -93,81 +93,68 @@
     <h1><%=title%></h1>
     <p><%=text%></p>
     <strong>
- <code>
-          <div class="oK" style="color: #e1e4e8; background-color: #24292e; font-family: 'Droid Sans Mono', 'monospace', monospace; font-weight: normal; font-size: 14px;">
-          <div><span style="color: #e1e4e8;">&lt;</span><span style="color: #85e89d;">div</span><span style="color: #e1e4e8;"> </span><span style="color: #b392f0;">id</span><span style="color: #e1e4e8;">=</span><span style="color: #9ecbff;">"comments"</span><span style="color: #e1e4e8;"> </span><span style="color: #b392f0;">style</span><span style="color: #e1e4e8;">=</span><span style="color: #9ecbff;">"</span><span style="color: #9ecbff;">width:100%;max-width:100%"</span><span style="color: #e1e4e8;">&gt;&lt;/</span><span style="color: #85e89d;">div</span><span style="color: #e1e4e8;">&gt;</span></div>
-          <div><span style="color: #e1e4e8;"> &lt;</span><span style="color: #85e89d;">a</span><span style="color: #e1e4e8;"> </span><span style="color: #b392f0;">href</span><span style="color: #e1e4e8;">=</span><span style="color: #9ecbff;">"https://qucu.ru/comments/"</span><span style="color: #e1e4e8;"> </span><span style="color: #b392f0;">style</span><span style="color: #e1e4e8;">=</span><span style="color: #9ecbff;">"</span><span style="color: #9ecbff;">font-size: 17px;"</span><span style="color: #e1e4e8;">&gt;https://comments.qucu.ru/&lt;/</span><span style="color: #85e89d;">a</span><span style="color: #e1e4e8;">&gt;</span></div>
-          <div><span style="color: #e1e4e8;"> &lt;</span><span style="color: #85e89d;">script</span><span style="color: #e1e4e8;"> </span><span style="color: #b392f0;">type</span><span style="color: #e1e4e8;">=</span><span style="color: #9ecbff;">"text/javascript"</span><span style="color: #e1e4e8;">&gt;</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">const</span><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">site</span><span style="color: #f97583;">=</span><span style="color: #e1e4e8;">{</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">origin</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">'https://exampleSite.vru/'</span><span style="color: #e1e4e8;">,</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">referrer</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">"https://exampleSite.vru/folder"</span></div>
-          <div><span style="color: #e1e4e8;"> }</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">const</span><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">importantBag</span><span style="color: #f97583;">=</span><span style="color: #e1e4e8;">{</span><span style="color: #e1e4e8;">id</span><span style="color: #e1e4e8;">:</span><span style="color: #9ecbff;">"test"</span><span style="color: #e1e4e8;">,</span><span style="color: #e1e4e8;">site</span><span style="color: #e1e4e8;">:</span><span style="color: #79b8ff;">window</span><span style="color: #e1e4e8;">.</span><span style="color: #79b8ff;">location</span><span style="color: #e1e4e8;">};</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #6a737d;">// const id='test';// important!!!</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">const</span><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">script</span><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">=</span><span style="color: #79b8ff;">document</span><span style="color: #e1e4e8;">.</span><span style="color: #b392f0;">createElement</span><span style="color: #e1e4e8;">(</span><span style="color: #9ecbff;">'script'</span><span style="color: #e1e4e8;">);</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">const</span><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">url</span><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">=</span><span style="color: #9ecbff;">'https://comments.qucu.ru/allow-cors/'</span><span style="color: #e1e4e8;">;</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">async</span><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">function</span><span style="color: #e1e4e8;"> </span><span style="color: #b392f0;">goComments</span><span style="color: #e1e4e8;">(){</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">await</span><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">fetch</span><span style="color: #e1e4e8;">(</span><span style="color: #79b8ff;">url</span><span style="color: #e1e4e8;">,{</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">headers</span><span style="color: #e1e4e8;">: {</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #9ecbff;">'Content-Type'</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">'application/json'</span><span style="color: #e1e4e8;">,</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #9ecbff;">'Access-Control-Allow-Origin'</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">'*'</span></div>
-          <div><span style="color: #e1e4e8;"> },</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">origin</span><span style="color: #e1e4e8;">:</span><span style="color: #79b8ff;">site</span><span style="color: #e1e4e8;">.</span><span style="color: #e1e4e8;">origin</span><span style="color: #e1e4e8;">,</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">method</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">"POST"</span><span style="color: #e1e4e8;">,</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">referrer</span><span style="color: #e1e4e8;">: </span><span style="color: #79b8ff;">site</span><span style="color: #e1e4e8;">.</span><span style="color: #e1e4e8;">referrer</span><span style="color: #e1e4e8;">,</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">referrerPolicy</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">"origin-when-cross-origin"</span><span style="color: #e1e4e8;">,</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">mode</span><span style="color: #e1e4e8;">:</span><span style="color: #9ecbff;">"cors"</span><span style="color: #e1e4e8;">,</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">credentials</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">"omit"</span><span style="color: #e1e4e8;">,</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">cache</span><span style="color: #e1e4e8;">: </span><span style="color: #9ecbff;">"no-store"</span><span style="color: #e1e4e8;">,</span></div>
-          <div><span style="color: #e1e4e8;"> }).</span><span style="color: #b392f0;">then</span><span style="color: #e1e4e8;">(</span><span style="color: #ffab70;">response</span><span style="color: #f97583;">=&gt;</span><span style="color: #ffab70;">response</span><span style="color: #e1e4e8;">.</span><span style="color: #b392f0;">text</span><span style="color: #e1e4e8;">()).</span><span style="color: #b392f0;">then</span><span style="color: #e1e4e8;">(</span><span style="color: #ffab70;">result</span><span style="color: #f97583;">=&gt;</span><span style="color: #e1e4e8;">{</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">document</span><span style="color: #e1e4e8;">.</span><span style="color: #b392f0;">querySelector</span><span style="color: #e1e4e8;">(</span><span style="color: #9ecbff;">'#comments'</span><span style="color: #e1e4e8;">).</span><span style="color: #b392f0;">append</span><span style="color: #e1e4e8;">(</span><span style="color: #79b8ff;">script</span><span style="color: #e1e4e8;">);</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">let</span><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">oK</span><span style="color: #e1e4e8;"> </span><span style="color: #f97583;">=</span><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">document</span><span style="color: #e1e4e8;">.</span><span style="color: #b392f0;">querySelector</span><span style="color: #e1e4e8;">(</span><span style="color: #9ecbff;">'#comments &gt; script'</span><span style="color: #e1e4e8;">);</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">oK</span><span style="color: #e1e4e8;">.</span><span style="color: #79b8ff;">innerHTML</span><span style="color: #f97583;">=</span><span style="color: #ffab70;">result</span><span style="color: #e1e4e8;">;</span></div>
-          <div><span style="color: #e1e4e8;"> });</span></div>
-          <div><span style="color: #e1e4e8;"> };</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #79b8ff;">setTimeout</span><span style="color: #e1e4e8;">(()</span><span style="color: #f97583;">=&gt;</span><span style="color: #b392f0;">goComments</span><span style="color: #e1e4e8;">(),</span><span style="color: #79b8ff;">300</span><span style="color: #e1e4e8;">);</span></div>
-          <div><span style="color: #e1e4e8;"> </span><span style="color: #e1e4e8;">&lt;/</span><span style="color: #85e89d;">script</span><span style="color: #e1e4e8;">&gt;</span></div>
-          </div>
-        </code>
+      <span id="ID"></span>
 <a href="https://github.com/amir248/comments">GitHub</a>
 <br>
 <a href="https://github.qucu.ru/"> Example from GitHub</a>
-     </strong>
-     <!--
-      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                             Here commentsBlock!
-     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-     -->
-     <div id="comments" style="width:100%;max-width:100%"></div>
-     <a href="https://qucu.ru/comments/" style="font-size: 17px;">https://comments.qucu.ru/</a>
-     <script type="text/javascript">
-       const site={
-         origin: 'https://comments.qucu.ru/',
-         referrer: "https://comments.qucu.ru/"
-       }
-       const importantBag={id:"nasoberu",site:window.location};
-         // const id='nasoberu';// important!!!
-         const script =document.createElement('script');
-         const url ='https://comments.qucu.ru/allow-cors/';
-         async function goComments(){
-           await fetch(url,{
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            //  origin:site.origin,
-             method: "POST",
-            //  referrer: site.referrer,
-             referrerPolicy: "origin-when-cross-origin",
-             mode:"cors",
-             credentials: "include",
-             cache: "no-store",
-           }).then(response=>response.text()).then(result=>{
-             document.querySelector('#comments').append(script);
-             let oK = document.querySelector('#comments > script');
-             oK.innerHTML=result;
-           });
-         };
-         setTimeout(()=>goComments(),300);
-     </script>
+</strong>
+     <code>
+    <div>
+<div><span> </span><span>async</span><span> </span><span>function</span><span> </span><span>loadAssets</span><span>() {</span></div>
+<div><span> </span><span>try</span><span> {</span></div>
+<div><span> </span><span>// Загружаем CSS</span></div>
+<div><span> </span><span>const</span><span> </span><span>cssResponse</span><span> = </span><span>await</span><span> </span><span>fetch</span><span>(</span><span>"https://comments.qucu.ru/style"</span><span>);</span></div>
+<div><span> </span><span>const</span><span> </span><span>cssText</span><span> = </span><span>await</span><span> </span><span>cssResponse</span><span>.</span><span>text</span><span>();</span></div>
+<div><span> </span><span>const</span><span> </span><span>style</span><span> = </span><span>document</span><span>.</span><span>createElement</span><span>(</span><span>"style"</span><span>);</span></div>
+<div><span> </span><span>style</span><span>.</span><span>textContent</span><span> = </span><span>cssText</span><span>;</span></div>
+<div><span> </span><span>document</span><span>.</span><span>head</span><span>.</span><span>append</span><span>(</span><span>style</span><span>);</span></div>
+<br />
+<div><span> </span><span>// Загружаем JS с ID пользователя</span></div>
+<div><span> </span><span>const</span><span> </span><span>jsResponse</span><span> = </span><span>await</span><span> </span><span>fetch</span><span>(</span><span>`https://comments.qucu.ru/js/</span><span><span>Your ID</span>`</span><span>);</span></div>
+<div><span> </span><span>const</span><span> </span><span>jsText</span><span> = </span><span>await</span><span> </span><span>jsResponse</span><span>.</span><span>text</span><span>();</span></div>
+<div><span> </span><span>const</span><span> </span><span>js</span><span> = </span><span>document</span><span>.</span><span>createElement</span><span>(</span><span>"script"</span><span>);</span></div>
+<div><span> </span><span>js</span><span>.</span><span>type</span><span> = </span><span>"text/javascript"</span><span>;</span></div>
+<div><span> </span><span>js</span><span>.</span><span>textContent</span><span> = </span><span>jsText</span><span>;</span></div>
+<div><span> </span><span>document</span><span>.</span><span>head</span><span>.</span><span>append</span><span>(</span><span>js</span><span>);</span></div>
+<br />
+<div><span> </span><span>console</span><span>.</span><span>log</span><span>(</span><span>"JS и CSS успешно подгружены для пользователя #Your ID!"</span><span>);</span></div>
+<div><span> } </span><span>catch</span><span> (</span><span>err</span><span>) {</span></div>
+<div><span> </span><span>console</span><span>.</span><span>error</span><span>(</span><span>"Ошибка загрузки:"</span><span>, </span><span>err</span><span>);</span></div>
+<div><span> }</span></div>
+<div><span> }</span></div>
+<br />
+<div><span> </span><span>loadAssets</span><span>();</span></div>
+</div>
+  </code>
+  <div id="comments"></div>
+
+  <script>
+     window.USER_ID = "<%= userId %>";
+    document.querySelector("#ID").textContent=window.USER_ID; 
+    async function loadAssets() {
+      try {
+        // Загружаем CSS
+        const cssResponse = await fetch("https://comments.qucu.ru/style");
+        const cssText = await cssResponse.text();
+        const style = document.createElement("style");
+        style.textContent = cssText;
+        document.head.append(style);
+
+        // Загружаем JS с ID пользователя
+        const jsResponse = await fetch("https://comments.qucu.ru/js/<%= userId %>");
+        const jsText = await jsResponse.text();
+        const js = document.createElement("script");
+        js.type = "text/javascript";
+        js.textContent = jsText;
+        document.head.append(js);
+
+        console.log("JS и CSS успешно подгружены для пользователя #<%= userId %>!");
+      } catch (err) {
+        console.error("Ошибка загрузки:", err);
+      }
+    }
+
+    loadAssets();
+  </script>
   </body>
 </html>
