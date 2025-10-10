@@ -27,7 +27,7 @@ const registerUrl=['https://qucu.ru'];
 // const whitelist = ['https://qucu.ru'];
 app.use(cors({
   // origin: false , // чтобы не ставить Access-Control-Allow-Origin
-  origin:['https://qucu.ru','https://new.qucu.ru','https://madness.qucu.ru','https://send-json.qucu.ru','https://i.ytimg.com'],
+  origin:["https://nasobe.ru",'https://qucu.ru','https://new.qucu.ru','https://madness.qucu.ru','https://send-json.qucu.ru','https://i.ytimg.com'],
   // origin: function (origin, callback) {
   //   if (!origin || whitelist.includes(origin)) {
   //     callback(null, origin);
@@ -51,13 +51,21 @@ app.use(helmet({
 }));
 // app.use(helmet());
 
+// app.use((req, res, next) => {
+//   res.setHeader(
+//     "Content-Security-Policy",
+//     "default-src 'self'; connect-src 'self' https://comments.qucu.ru; style-src 'self' 'unsafe-inline' https://comments.qucu.ru; script-src 'self' 'unsafe-inline' https://comments.qucu.ru;"
+//   );
+//   next();
+// });
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; connect-src 'self' https://comments.qucu.ru; style-src 'self' 'unsafe-inline' https://comments.qucu.ru; script-src 'self' 'unsafe-inline' https://comments.qucu.ru;"
+    "default-src 'self'; connect-src 'self' https://comments.qucu.ru https://nasobe.ru; style-src 'self' 'unsafe-inline' https://comments.qucu.ru https://nasobe.ru; script-src 'self' 'unsafe-inline' https://comments.qucu.ru https://nasobe.ru;"
   );
   next();
 });
+
 app.use(
   helmet.contentSecurityPolicy({
     useDefaults: true,
@@ -70,6 +78,7 @@ app.use(
         "https://comments.qucu.ru",
         "https://new.qucu.ru",
         "https://github.qucu.ru",
+        "https://nasobe.ru",
         "https://qucu.ru",
         "https://qucu.ru/landing-page"
       ],
@@ -79,6 +88,7 @@ app.use(
         "https://cdn.jsdelivr.net",
         "https://comments.qucu.ru",
         "https://new.qucu.ru",
+        "https://nasobe.ru",
         "https://github.qucu.ru",
         "https://qucu.ru"
       ],
@@ -88,6 +98,7 @@ app.use(
         "https://qucu.ru",
         "https://comments.qucu.ru",
         "https://new.qucu.ru",
+        "https://nasobe.ru",
         "https://github.qucu.ru"
       ],
       "connect-src": [
@@ -95,9 +106,10 @@ app.use(
         "https://comments.qucu.ru",
         "https://new.qucu.ru",
         "https://qucu.ru",
+        "https://nasobe.ru",
         "https://github.qucu.ru"
       ],
-      "frame-ancestors": ["'self'", "https://qucu.ru","https://qucu.ru/landing-page", "https://comments.qucu.ru", "https://new.qucu.ru"],
+      "frame-ancestors": ["'self'", "https://nasobe.ru","https://qucu.ru","https://qucu.ru/landing-page", "https://comments.qucu.ru", "https://new.qucu.ru"],
       "object-src": ["'none'"]
     }
   })
@@ -164,73 +176,30 @@ app.post('/allow-cors',jsonParser,(request,response)=>{
   // console.log(scriptComments);
 });// SCRIPT JS
 
+//style CSS
+app.get("/style", (req, res) => {
+  const origin = req.headers.origin;
+  const allowedOrigins = [
+    "https://nasobe.ru",
+    "https://qucu.ru",
+    "https://new.qucu.ru",
+    "https://github.qucu.ru"
+  ];
 
-// OPTIONS (CORS)
-app.options("/:id/:type", (req, res) => {
-  res.header("Access-Control-Allow-Origin", "https://send-json.qucu.ru");
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.sendStatus(204);
-});
-
-// // GET комментариев
-// app.get("/:type/:id?", (req, res) => {
-//   const { type, id } = req.params;
-//   const file = id ? `${type}-${id}.json` : `${type}.json`;
-
-//   try {
-//     const comments = JSON.parse(fs.readFileSync(file, "utf-8"));
-//     res.json(comments);
-//   } catch {
-//     res.json([]);
-//   }
-// });
-
-// // POST комментария
-// app.post("/:type/:id?", (req, res) => {
-//   const { type, id } = req.params;
-//   const file = id ? `${type}-${id}.json` : `${type}.json`;
-
-//   const comment = req.body;
-//   let comments = [];
-//   try {
-//     comments = JSON.parse(fs.readFileSync(file, "utf-8"));
-//   } catch {}
-
-//   comments.unshift(comment);
-//   fs.writeFileSync(file, JSON.stringify(comments, null, 2));
-//   res.send({ status: "ok" });
-// });
-
-// let pathoK="200";
-// app.options("/"+`${pathoK}`, (req, res) => {
-//   // res.header("Access-Control-Allow-Origin", "https://send-json.qucu.ru");
-//   // res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-//   // res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//   // res.header("Access-Control-Allow-Credentials", "true");
-//   // res.sendStatus(204);
-//   res.header("Access-Control-Allow-Origin", "https://send-json.qucu.ru");
-//   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-//   res.header("Access-Control-Allow-Headers", "Content-Type");
-//   res.header("Access-Control-Allow-Credentials", "true");
-// });
-
-app.post("/login3-proxy", async (req, res) => {
-  try {
-    const response = await fetch("http://192.168.1.177:3700/login3", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(req.body),
-    });
-
-    const data = await response.json();
-    res.json(data);
-  } catch (err) {
-    console.error("Ошибка прокси:", err);
-    res.status(500).json({ error: err.message });
+  if (allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);
+    res.header("Access-Control-Allow-Methods", "GET, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization");
+    res.header("Access-Control-Allow-Credentials", "true");
   }
+  // res.sendStatus(204); // No Content
+  fs.readFile("public/web-workshop.css", "utf8", (err, data) => {
+    if (err) return res.sendStatus(500);
+    res.type("text/css").send(data);
+  });
 });
+
+
 app.get("/js/:id", (req, res) => {
   const id = req.params.id;  // <-- вот тут он будет
   console.log("JS requested for id:", id);
@@ -246,48 +215,50 @@ app.get("/js/:id", (req, res) => {
     res.type("application/javascript").send(injected);
   });
 });
-// CSS
-app.get("/style", (req, res) => {
-  fs.readFile("public/web-workshop.css", "utf8", (err, data) => {
-    if (err) return res.sendStatus(500);
-    res.type("text/css").send(data);
-  });
+app.post("/login3-proxy", async (req, res) => {
+  try {
+    const response = await fetch("http://192.168.1.177:3700/login3", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(req.body),
+    });
+
+    // проверяем статус
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      return res.status(response.status).json({
+        success: false,
+        message: errorData.message || "Ошибка при авторизации",
+      });
+    }
+
+    const data = await response.json();
+    return res.json({ success: true, ...data });
+
+  } catch (err) {
+    console.error("Ошибка прокси:", err);
+    return res.status(500).json({
+      success: false,
+      message: "Ошибка связи с сервером авторизации",
+    });
+  }
 });
-// app.get("/"+`${pathoK}`, (req, res) => {
+// app.post("/login3-proxy", async (req, res) => {
 //   try {
-//     const comments = JSON.parse(fs.readFileSync(`${pathoK}`+".json", "utf-8"));
-//     res.json(comments);
-//   } catch {
-//     res.json([]);
+//     const response = await fetch("http://192.168.1.177:3700/login3", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(req.body),
+//     });
+
+//     const data = await response.json();
+//     res.json(data);
+//   } catch (err) {
+//     console.error("Ошибка прокси:", err);
+//     res.status(500).json({ error: err.message });
 //   }
 // });
 
-// app.get("/:id/:type", (req, res) => {
-//   const { type, id } = req.params;
-//   const file = id ? `${id}-${type}.json` : `${type}.json`;
-
-//   try {
-//     const comments = JSON.parse(fs.readFileSync(file, "utf-8"));
-//     res.json(comments);
-//   } catch {
-//     res.json([]);
-//   }
-// });
-// // POST комментария
-// app.post("/:id/:type", (req, res) => {
-//   const { type, id } = req.params;
-//   const file = id ? `${id}-${type}.json` : `${type}.json`;
-
-//   const comment = req.body;
-//   let comments = [];
-//   try {
-//     comments = JSON.parse(fs.readFileSync(file, "utf-8"));
-//   } catch {}
-
-//   comments.unshift(comment);
-//   fs.writeFileSync(file, JSON.stringify(comments, null, 2));
-//   res.send({ status: "ok" });
-// });
 // GET комментариев
 app.get("/:id/:type", (req, res) => {
   const { id } = req.params;
@@ -329,47 +300,7 @@ app.post("/:id/:type", (req, res) => {
   fs.writeFileSync(file, JSON.stringify(comments, null, 2));
   res.send({ status: "ok" });
 });
-//******************************************************************************************************************
-// ----------------------------BOX comments system------------
-// *******************************************************************************************************************
-// app.post('/xxx',jsonParser,(request,response)=>{
-//   console.log(__dirname + " dirname");
-//   console.log(request.body);
-//   console.log("hello world! ");
-//   let ress=console.log('oK!!!');
-//   const a111 = '/public/allDiscus/a111';
-//   fs.mkdir(a111,{recursive:true},(err)=>{
-//     if(err){
-//       console.error('eroor between create  folder, err');
-//     }else{
-//       console.log('create fodder was excessufull');
-//     }
-//   })
-//   try {
-//     fs.writeFileSync('/public/allDiscus/111/my_file.json', 'Содержимое файла');
-//     console.log('Файл создан');
-//     console.log('oK');
-//   } catch (err) {
-//     console.error(err);
-//   }
-//   response.send(ress);
-// });
 
-// const importantBag={}
-// if(importantBag=={}){
-//   console.log('bag there exists');
-// }else{
-//   console.log(importantBag.id);
-//   console.log('bag empty');
-// }
-// const id=['a000','a001','a002','a003','a004','a005','a777','git','nasoberu','test','resume','sweb','blozh','mad','blozhik','google'];
-
-// let x = `${importantBag.id}`;
-// const comments = commentsFn(app,requestLimiter, jsonParser, cors, fs, id, importantBag,path);
-
-// for(let i=0; i<id.length;i++){
-//   comments(i);
-// }
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

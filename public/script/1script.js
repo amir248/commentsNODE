@@ -3,11 +3,11 @@
 // const id;
 let id =ID_FROM_SERVER;
 const d=new Date();
-console.log(id);
+// console.log(id);
 const loc=window.location;
-console.log(loc);
+// console.log(loc);
 let type=window.location.pathname;
-console.log(type);
+// console.log(type);
 if(type=="/") type="/1";
 let strType=(type.match(/\//g) || []).length;
 if(strType==2){
@@ -21,9 +21,9 @@ if(strType==2){
   console.log(type);
   // return type;
 }else{
-  console.log(strType);
+  // console.log(strType);
 }
-console.log(type);
+// console.log(type);
 // let id="a111";
 if(!savedUser){
   const authorizationForm=document.createElement("form");
@@ -54,7 +54,7 @@ if(!savedUser){
   register.textContent="🪄";
   document.querySelector(".login").append(register);
 }else{
-  console.log('non');
+  // console.log('non');
   // Если есть, выводим логин вверху
   const userDisplay = document.createElement("div");
   userDisplay.textContent = `Привет, ${savedUser}!`;
@@ -221,14 +221,16 @@ if(document.getElementById("push")){
     doLogin();
   });
 }else{
-  console.log('Final Fantasy');
+  // console.log('Final Fantasy');
 }
 
 /* <button id="logoutBtn">Выйти</button> */
 async function logoutUser() {
+  console.log("logout");
   try {
-    localStorage.removeItem("username");
-    setTimeout(window.location.href="/",777);
+    // console.log('logout');
+    // localStorage.removeItem("username");
+    // setTimeout(window.location.href="/",777);
     // 1️⃣ Отправляем запрос на сервер комментариев
     const response = await fetch("https://new.qucu.ru/logout", {
       method: "POST",
@@ -248,7 +250,7 @@ async function logoutUser() {
 
       // 3️⃣ (опционально) уведомляем UI
       console.log("Вы вышли из системы");
-      window.location.href = "/login"; // или reload
+      window.location.href = "/"; // или reload
     } else {
       console.error("Ошибка logout:", result.message);
     }
@@ -256,9 +258,9 @@ async function logoutUser() {
     console.error("Ошибка при logout:", err);
   }
 }
-document.addEventListener("DOMContentLoaded", () => {
+// document.addEventListener("DOMContentLoaded", () => {
   // весь код, который навешивает addEventListener
   document.getElementById("logoutBtn").addEventListener("click", logoutUser);
-});
+// });
 
 
