@@ -147,7 +147,7 @@ async function loadComments() {
     console.error(err);
   }
 }
-setInterval(loadComments,17777);
+setInterval(loadComments,3777);
 // loadComments();
 
 const sendButton=document.querySelector(".formWebWorkshop > button");

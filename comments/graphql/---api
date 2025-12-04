@@ -1,0 +1,8 @@
+[
+  {
+    "query": "query IntrospectionQuery{__schema{queryType{name} types{name}}}"
+  },
+  {
+    "query": "query IntrospectionQuery{__schema{queryType{name} types{name}}}"
+  }
+]
