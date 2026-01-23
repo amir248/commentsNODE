@@ -1,5 +1,9 @@
 [
   {
+    "name": "unknown guest",
+    "message": "Hi! How are you?"
+  },
+  {
     "name": "admin",
     "date": "Fri Oct 10 2025 15:02:53 GMT+0700 (Krasnoyarsk Standard Time)",
     "loc": "https://nasobe.ru/comments/",

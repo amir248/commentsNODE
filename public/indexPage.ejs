@@ -87,6 +87,9 @@
         word-wrap: break-word;
         white-space: normal;
     }
+    body > strong{
+      color:green;
+    }
 </style>
   </head>
   <body>
@@ -126,35 +129,47 @@
 <div><span> </span><span>loadAssets</span><span>();</span></div>
 </div>
   </code>
+  <strong>DOWNLOAD <a href="https://comments.qucu.ru/app-comments.apk
+">CommentsApp</a></strong> <a href="https://new.qucu.ru/">Page Persons</a>
   <div id="comments"></div>
 
   <script>
-     window.USER_ID = "<%= userId %>";
-    document.querySelector("#ID").textContent=window.USER_ID; 
+    window.addEventListener("DOMContentLoaded", () => {
+    window.USER_ID = "<%= userId %>";
+
+    const idElem = document.querySelector("#ID");
+    if (idElem) {
+        idElem.textContent = window.USER_ID;
+    }
+
     async function loadAssets() {
-      try {
-        // Загружаем CSS
-        const cssResponse = await fetch("https://comments.qucu.ru/style");
-        const cssText = await cssResponse.text();
-        const style = document.createElement("style");
-        style.textContent = cssText;
-        document.head.append(style);
+        try {
+            // Загружаем CSS
+            const cssResponse = await fetch("https://comments.qucu.ru/style", { credentials: "include" });
+            const cssText = await cssResponse.text();
+            const style = document.createElement("style");
+            style.textContent = cssText;
+            document.head.append(style);
 
-        // Загружаем JS с ID пользователя
-        const jsResponse = await fetch("https://comments.qucu.ru/js/<%= userId %>");
-        const jsText = await jsResponse.text();
-        const js = document.createElement("script");
-        js.type = "text/javascript";
-        js.textContent = jsText;
-        document.head.append(js);
+            // Загружаем JS с ID пользователя
+            const jsResponse = await fetch(`https://comments.qucu.ru/js/<%= userId %>`, { credentials: "include" });
+            const jsText = await jsResponse.text();
+            console.log("Fetched JS content:", jsText); // ✅ лог для проверки
 
-        console.log("JS и CSS успешно подгружены для пользователя #<%= userId %>!");
-      } catch (err) {
-        console.error("Ошибка загрузки:", err);
-      }
+            const js = document.createElement("script");
+            js.type = "text/javascript";
+            js.textContent = jsText;
+            document.head.append(js);
+
+            console.log(`JS и CSS успешно подгружены для пользователя #<%= userId %>!`);
+        } catch (err) {
+            console.error("Ошибка загрузки:", err);
+        }
     }
 
     loadAssets();
+});
+
   </script>
   </body>
 </html>

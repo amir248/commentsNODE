@@ -23,10 +23,21 @@ const requestLimiter = rateLimit({
 });
 // ,'https://amir248.github.io','https://github.qucu.ru'
 const registerUrl=['https://qucu.ru'];
+const newLocal = 'https://new.qucu.ru';
 // const whitelist = ['https://qucu.ru'];
 app.use(cors({
   // origin: false , // чтобы не ставить Access-Control-Allow-Origin
-  origin:['https://qucu.ru','https://new.qucu.ru','https://madness.qucu.ru','https://send-json.qucu.ru','https://i.ytimg.com'],
+  //origin:['https://qucu.ru','https://new.qucu.ru','https://madness.qucu.ru','https://send-json.qucu.ru','https://i.ytimg.com'],
+  // origin:true,
+  origin: function(origin, callback){
+    // разрешаем браузерные origin и WebView (file:// -> null)
+    if(!origin || ['https://qucu.ru','https://new.qucu.ru','https://github.qucu.ru'].includes(origin)){
+      callback(null, true);
+    } else {
+      console.log("Blocked CORS from:", origin);
+      callback(null, true); // разрешаем APK даже с null
+    }
+  },
   // origin: function (origin, callback) {
   //   if (!origin || whitelist.includes(origin)) {
   //     callback(null, origin);
@@ -40,7 +51,14 @@ app.use(cors({
   allowedHeaders: ['Origin', 'Content-Type', 'Accept', 'Authorization']
   // allowedHeaders: '*'
 }));
-
+// === OPTIONS для всех GET/POST маршрутов ===
+app.options("*", (req,res)=>{
+  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.sendStatus(204);
+});
 
 // Helmet: безопасные заголовки
 app.use(helmet({
@@ -166,7 +184,7 @@ app.post('/allow-cors',jsonParser,(request,response)=>{
 
 // OPTIONS (CORS)
 app.options("/:id/:type", (req, res) => {
-  res.header("Access-Control-Allow-Origin", "https://send-json.qucu.ru");
+  res.header("Access-Control-Allow-Origin", req.headers.origin || "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type");
   res.header("Access-Control-Allow-Credentials", "true");

@@ -4,7 +4,7 @@
 let id =ID_FROM_SERVER;
 const d=new Date();
 // console.log(id);
-const loc=window.location.href;
+const loc=window.location;
 // console.log(loc);
 let type=window.location.pathname;
 // console.log(type);
@@ -63,7 +63,7 @@ if(!savedUser){
   document.querySelector("#comments").prepend(userDisplay);
 
   const logOutBtn=document.createElement("span");
-  logOutBtn.setAttribute("id","logOutBtn");
+  logOutBtn.setAttribute("id","logoutBtn");
   logOutBtn.classList.add("logOut");
   logOutBtn.textContent="👋";
   logOutBtn.setAttribute("title","logOut");
@@ -225,7 +225,7 @@ if(document.getElementById("push")){
 }
 
 /* <button id="logoutBtn">Выйти</button> */
-async function logOutUser() {
+async function logoutUser() {
   console.log("logout");
   try {
     // console.log('logout');
@@ -260,8 +260,8 @@ async function logOutUser() {
 }
 // document.addEventListener("DOMContentLoaded", () => {
   // весь код, который навешивает addEventListener
-  if (logOutBtn!==undefined) {
-    document.getElementById("logOutBtn").addEventListener("click", logOutUser);
+  if (logOutBtn) {
+    document.getElementById("logOutBtn").addEventListener("click", logoutUser);
   }
 // });
 
