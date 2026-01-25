@@ -68,6 +68,9 @@ if(!savedUser){
   logOutBtn.textContent="👋";
   logOutBtn.setAttribute("title","logOut");
   document.querySelector("#comments > div").append(logOutBtn);
+  if (logOutBtn) {
+    document.getElementById("logOutBtn").addEventListener("click", logOutUser);
+  }
 }
 const form=document.createElement('form');
 form.classList.add('formWebWorkshop');
@@ -260,9 +263,7 @@ async function logOutUser() {
 }
 // document.addEventListener("DOMContentLoaded", () => {
   // весь код, который навешивает addEventListener
-  if (logOutBtn!==undefined) {
-    document.getElementById("logOutBtn").addEventListener("click", logOutUser);
-  }
+  
 // });
 
 

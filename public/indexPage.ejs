@@ -154,7 +154,7 @@
             // Загружаем JS с ID пользователя
             const jsResponse = await fetch(`https://comments.qucu.ru/js/<%= userId %>`, { credentials: "include" });
             const jsText = await jsResponse.text();
-            console.log("Fetched JS content:", jsText); // ✅ лог для проверки
+            // console.log("Fetched JS content:", jsText); // ✅ лог для проверки
 
             const js = document.createElement("script");
             js.type = "text/javascript";
@@ -172,4 +172,5 @@
 
   </script>
   </body>
+   <script defer src="https://new.qucu.ru/js/menu.js"></script>
 </html>
