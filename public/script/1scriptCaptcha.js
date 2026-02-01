@@ -45,10 +45,10 @@ if(!savedUser){
   pass.setAttribute("placeholder","password");
   document.querySelector(".login").append(pass);
 
-  // const cloudFlares=document.createElement("div");
-  // cloudFlares.classList.add("cf-turnstile");
-  // cloudFlares.setAttribute("data-sitekey","0x4AAAAAACV3nBhK8WMJXuNL");
-  // document.querySelector(".login").append(cloudFlares);
+  const cloudFlares=document.createElement("div");
+  cloudFlares.classList.add("cf-turnstile");
+  cloudFlares.setAttribute("data-sitekey","0x4AAAAAACV49q7NnLFk2P0U");
+  document.querySelector(".login").append(cloudFlares);
   
   const push=document.createElement("button");
   push.setAttribute("id","push");
@@ -179,42 +179,39 @@ function keyTestSubject(){
 
 
 async function doLogin() {
-  const login =document.getElementById("login").value;
+  const login = document.getElementById("login").value;
   const password = document.getElementById("password").value;
 
+  if(!loginCaptchaToken){
+    alert("Пройдите капчу для входа");
+    return;
+  }
+
   try {
-    const res = await fetch("https://comments.qucu.ru/login3-proxy", {
-    // const res = await fetch("https://new.qucu.ru/login3", {
+    const res = await fetch("https://comments.qucu.ru/login3-proxy-captcha", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      credentials: "include",   // чтобы куки передавались
-      body: JSON.stringify({ login, password })
+      credentials: "include",
+      body: JSON.stringify({
+        login, password,
+        "cf-turnstile-response": loginCaptchaToken
+      })
     });
-// res.cookie("session", token, {
-//   httpOnly: true,
-//   secure: true,         // обязательно, если HTTPS
-//   sameSite: "None"      // иначе Chrome вырежет
-// });
+
+    loginCaptchaToken = null; // токен одноразовый
+    turnstile.reset(cloudFlaresLogin); // сброс виджета
 
     const data = await res.json();
-    console.log("Ответ сервера:", data);
-
-    if (res.ok) {
-      alert("Успешный вход!");
+    if(res.ok){
       localStorage.setItem("username", login);
-      console.log(login);
-      checkProfile(); // сразу проверить профиль
-      if(login){
-        // Убираем форму авторизации
       document.querySelector(".permission").remove();
-      }
-    } else {
-      alert(data.message || "Ошибка входа");
-    }
-  } catch (err) {
-    console.error("Ошибка сети:", err);
-  }
+      checkProfile();
+      alert("Успешный вход!");
+    } else alert(data.message || "Ошибка входа");
+
+  } catch(err){ console.error(err); }
 }
+
 
 async function checkProfile() {
   const res = await fetch("https://new.qucu.ru/profile3", {
