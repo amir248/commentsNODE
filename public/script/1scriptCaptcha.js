@@ -45,11 +45,25 @@ if(!savedUser){
   pass.setAttribute("placeholder","password");
   document.querySelector(".login").append(pass);
 
-  const cloudFlares=document.createElement("div");
-  cloudFlares.classList.add("cf-turnstile");
-  cloudFlares.setAttribute("data-sitekey","0x4AAAAAACV49q7NnLFk2P0U");
+  // const cloudFlares=document.createElement("div");
+  // cloudFlares.classList.add("cf-turnstile");
+  // cloudFlares.setAttribute("data-sitekey","0x4AAAAAACV49q7NnLFk2P0U");
+  // document.querySelector(".login").append(cloudFlares);
+  const cloudFlares = document.createElement("div");
+  cloudFlares.id = "cf-login";
   document.querySelector(".login").append(cloudFlares);
-  
+
+  cloudFlaresLogin = turnstile.render("#cf-login", {
+    sitekey: "0x4AAAAAACV49q7NnLFk2P0U",
+    callback: (token) => {
+      loginCaptchaToken = token;
+    },
+    "expired-callback": () => {
+      loginCaptchaToken = null;
+    }
+  });
+
+
   const push=document.createElement("button");
   push.setAttribute("id","push");
   push.textContent="Авторизироваться";
@@ -178,12 +192,46 @@ function keyTestSubject(){
 
 
 
+// async function doLogin() {
+//   const login = document.getElementById("login").value;
+//   const password = document.getElementById("password").value;
+
+//   if(!loginCaptchaToken){
+//     alert("Пройдите капчу для входа");
+//     return;
+//   }
+
+//   try {
+//     const res = await fetch("https://comments.qucu.ru/login3-proxy-captcha", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       credentials: "include",
+//       body: JSON.stringify({
+//         login, password,
+//         "cf-turnstile-response": loginCaptchaToken
+//       })
+//     });
+
+//     loginCaptchaToken = null; // токен одноразовый
+//     turnstile.reset(cloudFlaresLogin); // сброс виджета
+
+//     const data = await res.json();
+//     if(res.ok){
+//       localStorage.setItem("username", login);
+//       document.querySelector(".permission").remove();
+//       checkProfile();
+//       alert("Успешный вход!");
+//     } else alert(data.message || "Ошибка входа");
+
+//   } catch(err){ console.error(err); }
+// }//doLogin
+
 async function doLogin() {
   const login = document.getElementById("login").value;
   const password = document.getElementById("password").value;
 
-  if(!loginCaptchaToken){
-    alert("Пройдите капчу для входа");
+  if (!loginCaptchaToken) {
+    alert("Пройдите капчу");
     return;
   }
 
@@ -193,24 +241,32 @@ async function doLogin() {
       headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify({
-        login, password,
+        login,
+        password,
         "cf-turnstile-response": loginCaptchaToken
       })
     });
 
-    loginCaptchaToken = null; // токен одноразовый
-    turnstile.reset(cloudFlaresLogin); // сброс виджета
-
     const data = await res.json();
-    if(res.ok){
+
+    // токен одноразовый
+    loginCaptchaToken = null;
+    turnstile.reset(cloudFlaresLogin);
+
+    if (res.ok) {
       localStorage.setItem("username", login);
       document.querySelector(".permission").remove();
       checkProfile();
       alert("Успешный вход!");
-    } else alert(data.message || "Ошибка входа");
+    } else {
+      alert(data.message || "Ошибка входа");
+    }
 
-  } catch(err){ console.error(err); }
-}
+  } catch (err) {
+    console.error(err);
+  }
+}//do Login
+
 
 
 async function checkProfile() {

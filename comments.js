@@ -13,6 +13,8 @@ app.use(express.json());
 const path = require('path');
 const fs = require('fs');
 const { setFips } = require('crypto');
+
+
 // app.use('/static', express.static(path.join(__dirname, 'public')))
 
 // const commentsFn = require('./modules/newComments');
@@ -25,6 +27,20 @@ const requestLimiter = rateLimit({
 // ,'https://amir248.github.io','https://github.qucu.ru'
 const registerUrl=['https://qucu.ru'];
 // const whitelist = ['https://qucu.ru'];
+
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+function requireAuth(req, res, next) {
+  const userId = req.cookies?.userId; // берем userId из куки
+  if (!userId) {
+    return res.status(401).json({ error: "Только для зарегистрированных пользователей" });
+  }
+
+  req.userId = userId; // сохраняем для использования в роуте
+  next();
+}
+
 app.use(cors({
   // origin: false , // чтобы не ставить Access-Control-Allow-Origin
   origin:["https://nasobe.ru",'https://qucu.ru','https://new.qucu.ru','https://madness.qucu.ru','https://send-json.qucu.ru','https://i.ytimg.com'],
@@ -66,22 +82,82 @@ app.use((req, res, next) => {
   next();
 });
 
+// app.use(
+//   helmet.contentSecurityPolicy({
+//     useDefaults: true,
+//     directives: {
+//       "default-src": ["'self'", "https://qucu.ru"],
+//       "script-src": [
+//         "'self'",
+//         "'unsafe-inline'",
+//         "https://cdn.jsdelivr.net",
+//         "https://comments.qucu.ru",
+//         "https://new.qucu.ru",
+//         "https://github.qucu.ru",
+//         "https://nasobe.ru",
+//         "https://qucu.ru",
+//         "https://qucu.ru/landing-page"
+//       ],
+//       "style-src": [
+//         "'self'",
+//         "'unsafe-inline'",
+//         "https://cdn.jsdelivr.net",
+//         "https://comments.qucu.ru",
+//         "https://new.qucu.ru",
+//         "https://nasobe.ru",
+//         "https://github.qucu.ru",
+//         "https://qucu.ru"
+//       ],
+//       "img-src": [
+//         "'self'",
+//         "data:",
+//         "https://cdn.jsdelivr.net",
+//         "https://qucu.ru",
+//         "https://comments.qucu.ru",
+//         "https://new.qucu.ru",
+//         "https://nasobe.ru",
+//         "https://github.qucu.ru"
+//       ],
+//       "connect-src": [
+//         "'self'",
+//         "https://cdn.jsdelivr.net",
+//         "https://comments.qucu.ru",
+//         "https://new.qucu.ru",
+//         "https://qucu.ru",
+//         "https://nasobe.ru",
+//         "https://github.qucu.ru"
+//       ],
+//       "script-src-elem": [
+//       "'self'",
+//       "https://challenges.cloudflare.com",
+//       "https://cdn.jsdelivr.net",
+//       "https://comments.qucu.ru",
+//       "https://new.qucu.ru" // добавили
+//     ],
+//       "frame-ancestors": ["'self'", "https://cdn.jsdelivr.net","https://nasobe.ru","https://qucu.ru","https://qucu.ru/landing-page", "https://comments.qucu.ru", "https://new.qucu.ru"],
+//       "object-src": ["'none'"]
+//     }
+//   })
+// );
+
 app.use(
   helmet.contentSecurityPolicy({
     useDefaults: true,
     directives: {
       "default-src": ["'self'", "https://qucu.ru"],
+
       "script-src": [
         "'self'",
         "'unsafe-inline'",
+        "https://challenges.cloudflare.com",
         "https://cdn.jsdelivr.net",
         "https://comments.qucu.ru",
         "https://new.qucu.ru",
         "https://github.qucu.ru",
         "https://nasobe.ru",
-        "https://qucu.ru",
-        "https://qucu.ru/landing-page"
+        "https://qucu.ru"
       ],
+
       "style-src": [
         "'self'",
         "'unsafe-inline'",
@@ -92,24 +168,41 @@ app.use(
         "https://github.qucu.ru",
         "https://qucu.ru"
       ],
+
       "img-src": [
         "'self'",
         "data:",
+        "https://challenges.cloudflare.com",
         "https://qucu.ru",
         "https://comments.qucu.ru",
         "https://new.qucu.ru",
         "https://nasobe.ru",
         "https://github.qucu.ru"
       ],
+
       "connect-src": [
         "'self'",
+        "https://challenges.cloudflare.com",
         "https://comments.qucu.ru",
         "https://new.qucu.ru",
-        "https://qucu.ru",
-        "https://nasobe.ru",
-        "https://github.qucu.ru"
+        "https://qucu.ru"
       ],
-      "frame-ancestors": ["'self'", "https://nasobe.ru","https://qucu.ru","https://qucu.ru/landing-page", "https://comments.qucu.ru", "https://new.qucu.ru"],
+
+      // 🔥 ВОТ КЛЮЧЕВОЙ МОМЕНТ
+      "frame-src": [
+        "https://challenges.cloudflare.com"
+      ],
+
+      // кто МОЖЕТ встраивать ТВОЙ сайт
+      "frame-ancestors": [
+        "'self'",
+        "https://nasobe.ru",
+        "https://send-json.qucu.ru/",
+        "https://qucu.ru",
+        "https://comments.qucu.ru",
+        "https://new.qucu.ru"
+      ],
+
       "object-src": ["'none'"]
     }
   })
@@ -199,11 +292,26 @@ app.get("/style", (req, res) => {
   });
 });
 
+// Скрипт без капчи
+app.get("/no-captcha/:id", (req, res) => {
+  const id = req.params.id;
+  console.log("JS requested (no captcha) for id:", id);
 
+  fs.readFile("public/script/1script.js", "utf8", (error, data) => {
+    if (error) {
+      console.error("Error reading file:", error);
+      return res.sendStatus(500);
+    }
+
+    const injected = `const ID_FROM_SERVER = "${id}";\n` + data;
+    console.log("GET 1script.js (no captcha)");
+    res.type("application/javascript").send(injected);
+  });
+});
 app.get("/js/:id", (req, res) => {
   const id = req.params.id;  // <-- вот тут он будет
   console.log("JS requested for id:", id);
-  fs.readFile("public/script/1script.js", "utf8", (error, data) => {
+  fs.readFile("public/script/1scriptCaptcha.js", "utf8", (error, data) => {
     if (error) {
       console.error("Error reading file:", error);
       return res.sendStatus(500);
@@ -243,21 +351,71 @@ app.post("/login3-proxy", async (req, res) => {
     });
   }
 });
-// app.post("/login3-proxy", async (req, res) => {
-//   try {
-//     const response = await fetch("http://192.168.1.177:3700/login3", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(req.body),
-//     });
+app.post("/login3-proxy-captcha", async (req, res) => {
+  try {
+    const captchaToken = req.body["cf-turnstile-response"];
 
-//     const data = await response.json();
-//     res.json(data);
-//   } catch (err) {
-//     console.error("Ошибка прокси:", err);
-//     res.status(500).json({ error: err.message });
-//   }
-// });
+    if (!captchaToken) {
+      return res.status(400).json({
+        success: false,
+        message: "Captcha token missing",
+      });
+    }
+
+    // 1️⃣ Проверяем Turnstile
+    const verifyRes = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          secret: "0x4AAAAAACV49h1Wk6HpMg7ILUsFGjEQpwo", // ❗ secret key
+          response: captchaToken,
+          remoteip: req.ip,
+        }),
+      }
+    );
+
+    const verifyData = await verifyRes.json();
+
+    if (!verifyData.success) {
+      return res.status(403).json({
+        success: false,
+        message: "Captcha verification failed",
+      });
+    }
+
+    // 2️⃣ Убираем токен капчи перед проксированием
+    const cleanBody = { ...req.body };
+    delete cleanBody["cf-turnstile-response"];
+
+    // 3️⃣ Проксируем запрос на реальный auth-сервер
+    const response = await fetch("http://192.168.1.177:3700/login3", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(cleanBody),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      return res.status(response.status).json({
+        success: false,
+        message: errorData.message || "Ошибка при авторизации",
+      });
+    }
+
+    const data = await response.json();
+    return res.json({ success: true, ...data });
+
+  } catch (err) {
+    console.error("Ошибка прокси + captcha:", err);
+    return res.status(500).json({
+      success: false,
+      message: "Ошибка связи с сервером авторизации",
+    });
+  }
+});
+
 
 // GET комментариев
 app.get("/:id/:type", (req, res) => {

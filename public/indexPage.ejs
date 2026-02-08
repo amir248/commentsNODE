@@ -91,6 +91,8 @@
       color:green;
     }
 </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   </head>
   <body>
     <h1><%=title%></h1>
@@ -113,7 +115,7 @@
 <div><span> </span><span>document</span><span>.</span><span>head</span><span>.</span><span>append</span><span>(</span><span>style</span><span>);</span></div>
 <br />
 <div><span> </span><span>// Загружаем JS с ID пользователя</span></div>
-<div><span> </span><span>const</span><span> </span><span>jsResponse</span><span> = </span><span>await</span><span> </span><span>fetch</span><span>(</span><span>`https://comments.qucu.ru/js/</span><span><span>Your ID</span>`</span><span>);</span></div>
+<div><span> </span><span>const</span><span> </span><span>jsResponse</span><span> = </span><span>await</span><span> </span><span>fetch</span><span>(</span><span>`https://comments.qucu.ru/no-captcha/</span><span><span>Your ID</span>`</span><span>);</span></div>
 <div><span> </span><span>const</span><span> </span><span>jsText</span><span> = </span><span>await</span><span> </span><span>jsResponse</span><span>.</span><span>text</span><span>();</span></div>
 <div><span> </span><span>const</span><span> </span><span>js</span><span> = </span><span>document</span><span>.</span><span>createElement</span><span>(</span><span>"script"</span><span>);</span></div>
 <div><span> </span><span>js</span><span>.</span><span>type</span><span> = </span><span>"text/javascript"</span><span>;</span></div>

@@ -1,5 +1,12 @@
 [
   {
+    "name": "Admin",
+    "date": "Fri Feb 06 2026 10:52:28 GMT+0700 (Krasnoyarsk Standard Time)",
+    "loc": "https://comments.qucu.ru/",
+    "id": "7",
+    "message": "example"
+  },
+  {
     "name": "unknown guest",
     "message": "how are you?"
   },
