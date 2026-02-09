@@ -1,35 +1,65 @@
 // this site comments.qucu.ru
-// require("dotenv").config() site/custom_modules/.env SESSION_SECRET
-const path = require('path');
-const fs = require('fs');
 require('dotenv').config({ path: '/var/www/site/custom_modules/.env' });
-console.log("SESSION_SECRET:", process.env.SESSION_SECRET );
+console.log("SESSION_SECRET:", process.env.SESSION_SECRET);
 
 const express = require('express');
-const app = express();
-const port = 3000
-
 const session = require('express-session');
-
 const cookieParser = require('cookie-parser');
-app.use(cookieParser());
-
-const jsonParser = express.json();
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const path = require('path');
+const fs = require('fs');
 
-app.use(express.json());
+const { createClient } = require('redis');
+const RedisStore = require('connect-redis').default;
+
+const app = express();
+const port = 3000;
 
 
-const { setFips } = require('crypto');
-
+///-----------------------------------------------
 
 
 app.set('views','public');
 app.set("view engine", "ejs");
 app.use(express.static('public'));
 app.set('trust proxy', 1);
+
+(async () => {
+  // Redis
+  const redisClient = createClient({
+    url: process.env.REDIS_URL || 'redis://127.0.0.1:6379'
+  });
+
+  redisClient.on('error', (err) => console.log('Redis Client Error', err));
+  await redisClient.connect();
+
+  // Сессии
+  app.use(session({
+    store: new RedisStore({ client: redisClient }),
+    secret: process.env.SESSION_SECRET || 'default_secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false,
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000
+    }
+  }));
+
+  app.use(cookieParser());
+  app.use(express.json());
+  app.use(cors({ origin: ['https://qucu.ru'], credentials: true }));
+  app.use(helmet());
+
+  app.set('views','public');
+  app.set("view engine", "ejs");
+  app.use(express.static('public'));
+
+  // Ограничение частоты запросов
+  // const limiter = rateLimit({ windowMs: 60000, max: 10 });
+  // app.use(limiter);
 
 const requestLimiter = rateLimit({
   windowMs: 60 * 1000,
@@ -60,18 +90,18 @@ app.use(session({
   }
 }));
 
-console.log("SESSION_SECRET:", process.env.SESSION_SECRET);
-app.get("/_debug/set-session", (req, res) => {
-  req.session.userId = 123;
-  res.send("Session set!");
-});
+// console.log("SESSION_SECRET:", process.env.SESSION_SECRET);
+// app.get("/_debug/set-session", (req, res) => {
+//   req.session.userId = 123;
+//   res.send("Session set!");
+// });
 
-app.get("/_debug/session", (req, res) => {
-  res.json(req.session);
-});
-app.get("/protected", requireAuth, (req, res) => {
-  res.send(`Hello user ${req.session.userId}`);
-});
+// app.get("/_debug/session", (req, res) => {
+//   res.json(req.session);
+// });
+// app.get("/protected", requireAuth, (req, res) => {
+//   res.send(`Hello user ${req.session.userId}`);
+// });
 
 function requireAuth(req, res, next) {
   if (!req.session || !req.session.userId) {
@@ -83,9 +113,9 @@ function requireAuth(req, res, next) {
   next();
 };//requireAuth
 
-app.get("/_debug/session", (req, res) => {
-  res.json(req.session);
-});
+// app.get("/_debug/session", (req, res) => {
+//   res.json(req.session);
+// });
 
 app.use(cors({
   // origin: false , // чтобы не ставить Access-Control-Allow-Origin
@@ -451,7 +481,7 @@ app.post("/login3-proxy-captcha", async (req, res) => {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
-          secret: process.env.SECRETCLOUDFLARE, // ❗ secret key
+          secret: "0x4AAAAAACV49h1Wk6HpMg7ILUsFGjEQpwo", // ❗ secret key
           response: captchaToken,
           remoteip: req.ip,
         }),
@@ -543,5 +573,6 @@ app.post("/:id/:type", (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-})
+    console.log(`Server listening on port ${port}`);
+  });
+})();
