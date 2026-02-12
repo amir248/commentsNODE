@@ -119,6 +119,7 @@ forma.addEventListener("submit", async (e) => {
   
   try {
     const response = await fetch("https://comments.qucu.ru/"+`${id}`+`${type}`, {
+      credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json"

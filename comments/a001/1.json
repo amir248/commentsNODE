@@ -1,5 +1,12 @@
 [
   {
+    "name": "Lucky",
+    "date": "Wed Feb 11 2026 08:47:05 GMT+0700 (Krasnoyarsk Standard Time)",
+    "loc": "https://qucu.ru/",
+    "id": "a001",
+    "message": "example comment"
+  },
+  {
     "name": "SuperPuper",
     "date": "Wed Jan 14 2026 13:47:19 GMT+0700 (Krasnoyarsk Standard Time)",
     "loc": "https://qucu.ru/",
