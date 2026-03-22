@@ -153,6 +153,25 @@ forma.addEventListener("submit", async (e) => {
   }
 });
 
+
+// функция для удаления <style> и <script>
+function sanitizeMessage(str) {
+  return str.replace(/<\s*style.*?>.*?<\s*\/\s*style\s*>/gis, "")
+            .replace(/<\s*script.*?>.*?<\s*\/\s*script\s*>/gis, "");
+}
+
+// функция для экранирования других спецсимволов
+function escapeHTML(str) {
+  if(!str) return "";
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
 async function loadComments() {
   try {
     const response = await fetch("https://comments.qucu.ru/"+`${id}`+`${type}`);
@@ -161,10 +180,21 @@ async function loadComments() {
     // контейнер для вывода
     const list = document.getElementById("comments-list");
     list.innerHTML = ""; // очищаем перед выводом
+    // comments.forEach(c => {
+    //   const item = document.createElement("div");
+    //   item.classList.add("comment");
+    //   item.innerHTML = `<p><b>${c.name}</b>: ${c.message}</p> <span> ${c.date}</span>` ;
+    //   list.appendChild(item);
+    // });
     comments.forEach(c => {
       const item = document.createElement("div");
       item.classList.add("comment");
-      item.innerHTML = `<p><b>${c.name}</b>: ${c.message}</p> <span> ${c.date}</span>` ;
+
+      const safeName = escapeHTML(c.name);
+      const safeMessage = sanitizeMessage(c.message); // удаляем style/script
+      const safeDate = escapeHTML(c.date);
+
+      item.innerHTML = `<p><b>${safeName}</b>: ${safeMessage}</p> <span>${safeDate}</span>`;
       list.appendChild(item);
     });
   } catch (err) {

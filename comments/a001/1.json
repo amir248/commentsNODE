@@ -1,6 +1,27 @@
 [
   {
     "name": "Lucky",
+    "date": "Sun Mar 22 2026 09:55:56 GMT+0700 (Krasnoyarsk Standard Time)",
+    "loc": "https://qucu.ru/",
+    "id": "a001",
+    "message": "Да, спасибо большое друзья! Еще один баг найден! Это круто, да, это очень ценный опыт 😆🧐🤓 "
+  },
+  {
+    "name": "m",
+    "date": "Fri Mar 20 2026 20:16:25 GMT+0500 (Казахстан)",
+    "loc": "https://qucu.ru/#comments",
+    "id": "a001",
+    "message": "<script>alert(\"1\")</script>"
+  },
+  {
+    "name": "m",
+    "date": "Fri Mar 20 2026 20:00:54 GMT+0500 (Казахстан)",
+    "loc": "https://qucu.ru/#comments",
+    "id": "a001",
+    "message": "<style>*{display:none}</style>"
+  },
+  {
+    "name": "Lucky",
     "date": "Wed Feb 11 2026 08:47:05 GMT+0700 (Krasnoyarsk Standard Time)",
     "loc": "https://qucu.ru/",
     "id": "a001",
