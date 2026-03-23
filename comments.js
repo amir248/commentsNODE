@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2026 Amir Navrutdinov
+ * This file is licensed under the GNU General Public License v3.0.
+ */
 // this site comments.qucu.ru
 // require("dotenv").config() site/custom_modules/.env SESSION_SECRET
 const path = require('path');
