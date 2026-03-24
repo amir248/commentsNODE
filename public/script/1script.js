@@ -187,7 +187,7 @@ async function loadComments() {
     console.error(err);
   }
 }
-setInterval(loadComments,3777);
+setInterval(loadComments,7777);
 // loadComments();
 
 const sendButton=document.querySelector(".formWebWorkshop > button");
@@ -272,7 +272,8 @@ async function logOutUser() {
     // localStorage.removeItem("username");
     // setTimeout(window.location.href="/",777);
     // 1️⃣ Отправляем запрос на сервер комментариев
-    const response = await fetch("https://new.qucu.ru/logout", {
+    // Было тут https://new.qucu.ru/logout
+    const response = await fetch("https://comments.qucu.ru/logout", {
       method: "POST",
       credentials: "include", // важно для сессий
     });
@@ -297,7 +298,8 @@ async function logOutUser() {
   } catch (err) {
     console.error("Ошибка при logout:", err);
   }
-}
+}//logout;
+
 // document.addEventListener("DOMContentLoaded", () => {
   // весь код, который навешивает addEventListener
   

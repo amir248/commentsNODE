@@ -126,7 +126,7 @@ app.get("/_debug/cookie", (req, res) => {
 
 app.use(cors({
   // origin: false , // чтобы не ставить Access-Control-Allow-Origin
-  origin:["https://nasobe.ru",'https://qucu.ru','https://new.qucu.ru','https://madness.qucu.ru','https://send-json.qucu.ru','https://i.ytimg.com','https://comments.qucu.ru'],
+  origin:["https://nasobe.ru",'https://qucu.ru','https://new.qucu.ru','https://madness.qucu.ru','https://send-json.qucu.ru','https://i.ytimg.com','https://comments.qucu.ru','https://amulets-kampuktera.qucu.ru/'],
   // origin: function (origin, callback) {
   //   if (!origin || whitelist.includes(origin)) {
   //     callback(null, origin);
@@ -673,7 +673,47 @@ app.post("/:id/:type",requireAuth, (req, res) => {
   fs.writeFileSync(file, JSON.stringify(comments, null, 2));
   res.send({ status: "ok" });
 });//POST comments
+// // Выход
+app.get('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error("Ошибка при выходе:", err);
+      return res.status(500).send("Ошибка сервера");
+    }
+    res.clearCookie('connect.sid'); // удаляем cookie сессии
+    res.redirect('/'); // перенаправляем на страницу логина
+  });
+});
+app.post("/logout", (req, res) => {
+  console.log("SESSION:", req.session);
+  console.log("COOKIE HEADER:", req.headers.cookie);
+  if (!req.session) {
+    return res.json({ success: true, message: "Нет сессии" });
+  }
 
+  req.session.destroy(err => {
+    if (err) {
+      console.error("Ошибка при уничтожении сессии:", err);
+      return res.status(500).json({
+        success: false,
+        message: "Ошибка сервера при logout",
+      });
+    }
+
+    // 🔥 ВАЖНО: параметры должны совпадать с теми, что при установке cookie
+    res.clearCookie("connect.sid", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      domain: ".qucu.ru"
+    });
+
+    return res.json({
+      success: true,
+      message: "Вы вышли из системы",
+    });
+  });
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

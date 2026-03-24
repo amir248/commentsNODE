@@ -325,7 +325,8 @@ async function logOutUser() {
     // localStorage.removeItem("username");
     // setTimeout(window.location.href="/",777);
     // 1️⃣ Отправляем запрос на сервер комментариев
-    const response = await fetch("https://new.qucu.ru/logout", {
+    //https://new.qucu.ru/logout
+    const response = await fetch("https://comments.qucu.ru/logout", {
       method: "POST",
       credentials: "include", // важно для сессий
     });
