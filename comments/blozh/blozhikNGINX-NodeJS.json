@@ -1,5 +1,12 @@
 [
   {
+    "name": "Lucky",
+    "date": "Thu Mar 26 2026 08:24:52 GMT+0700 (Krasnoyarsk Standard Time)",
+    "loc": "https://qucu.ru/blozhik/NGINX-NodeJS",
+    "id": "blozh",
+    "message": "Крона работает очень просто!"
+  },
+  {
     "name": "ChikChicly",
     "date": "Wed Feb 11 2026 08:49:24 GMT+0700 (Krasnoyarsk Standard Time)",
     "loc": "https://qucu.ru/blozhik/NGINX-NodeJS",
