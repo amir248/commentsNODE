@@ -10,6 +10,9 @@ require('dotenv').config({ path: '/var/www/site/custom_modules/.env' });
 console.log("SESSION_SECRET:", process.env.SESSION_SECRET );
 
 const express = require('express');
+
+const myCors = require("./modules/cors");
+
 const app = express();
 const port = 3000
 
@@ -25,6 +28,7 @@ const helmet = require('helmet');
 
 app.use(express.json());
 
+app.use(myCors);// myCors!!!!!!!!!!
 
 const { setFips } = require('crypto');
 
@@ -124,22 +128,15 @@ app.get("/_debug/cookie", (req, res) => {
   });
 });
 
-app.use(cors({
-  // origin: false , // чтобы не ставить Access-Control-Allow-Origin
-  origin:["https://nasobe.ru",'https://qucu.ru','https://new.qucu.ru','https://madness.qucu.ru','https://send-json.qucu.ru','https://i.ytimg.com','https://comments.qucu.ru','https://amulets-kampuktera.qucu.ru/'],
-  // origin: function (origin, callback) {
-  //   if (!origin || whitelist.includes(origin)) {
-  //     callback(null, origin);
-  //   } else {
-  //     callback(new Error('Not allowed by CORS'));
-  //   }
-  // },
-  methods:['POST', 'GET', 'OPTIONS'],
-  optionsSuccessStatus: 200,
-  credentials: true,
-  allowedHeaders: ['Origin', 'Content-Type', 'Accept', 'Authorization']
-  // allowedHeaders: '*'
-}));
+// app.use(cors({
+//     origin:["https://nasobe.ru",'https://qucu.ru','https://new.qucu.ru','https://madness.qucu.ru','https://send-json.qucu.ru','https://i.ytimg.com','https://comments.qucu.ru','https://amulets-kampuktera.qucu.ru/'],
+  
+//   methods:['POST', 'GET', 'OPTIONS'],
+//   optionsSuccessStatus: 200,
+//   credentials: true,
+//   allowedHeaders: ['Origin', 'Content-Type', 'Accept', 'Authorization']
+
+// }));
 
 
 // Helmet: безопасные заголовки
@@ -338,7 +335,28 @@ app.get('/',  (request, response) => {
 app.get('/onclicker',(request,response)=>{
   response.render('onclicker',{oK: 'onClick'});
 });
+// app.use((req, res, next) => {
+//   const origin = req.headers.origin;
+//   const allowedOrigins = [
+//     "https://nasobe.ru",
+//     "https://qucu.ru",
+//     "https://new.qucu.ru",
+//     "https://github.qucu.ru"
+//   ];
 
+//   if (allowedOrigins.includes(origin)) {
+//     res.header("Access-Control-Allow-Origin", origin);
+//     res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+//     res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization");
+//     res.header("Access-Control-Allow-Credentials", "true");
+//   }
+
+//   if (req.method === "OPTIONS") {
+//     return res.sendStatus(204);
+//   }
+
+//   next();
+// });
 // app.set('trust proxy', true);
 
 // Ограничение частоты запросов
@@ -389,7 +407,7 @@ app.post('/allow-cors',jsonParser,(request,response)=>{
 });// SCRIPT JS
 
 //style CSS
-app.get("/style", (req, res) => {
+app.get("/style", myCors, (req, res) => {
   const origin = req.headers.origin;
   const allowedOrigins = [
     "https://nasobe.ru",

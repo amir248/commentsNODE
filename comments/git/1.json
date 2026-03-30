@@ -1,6 +1,13 @@
 [
   {
     "name": "Lucky",
+    "date": "Sun Mar 29 2026 14:31:51 GMT+0700 (Krasnoyarsk Standard Time)",
+    "loc": "https://send-json.qucu.ru/",
+    "id": "git",
+    "message": "oK, it'a working!"
+  },
+  {
+    "name": "Lucky",
     "date": "Tue Mar 24 2026 09:52:03 GMT+0700 (Krasnoyarsk Standard Time)",
     "loc": "https://send-json.qucu.ru/",
     "id": "git",
