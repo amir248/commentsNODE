@@ -407,7 +407,8 @@ app.post('/allow-cors',jsonParser,(request,response)=>{
 });// SCRIPT JS
 
 //style CSS
-app.get("/style", myCors, (req, res) => {
+app.get("/style", (req, res) => {
+  console.log("ORIGIN:", req.headers.origin);
   const origin = req.headers.origin;
   const allowedOrigins = [
     "https://nasobe.ru",
@@ -464,6 +465,7 @@ app.post("/login3-proxy", async (req, res) => {
   try {
     const response = await fetch("http://192.168.1.177:3700/login3", {
       method: "POST",
+      credentials: "include", // 🔥 ОБЯЗАТЕЛЬНО
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(req.body),
     });
@@ -605,6 +607,7 @@ app.post("/login3-proxy-captcha", async (req, res) => {
     // 3️⃣ Прокси на auth-сервер
     const response = await fetch("http://192.168.1.177:3700/login3", {
       method: "POST",
+      credentials: "include", // 🔥 ОБЯЗАТЕЛЬНО
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(cleanBody),
     });
