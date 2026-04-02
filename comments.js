@@ -69,21 +69,7 @@ app.use((req, res, next) => {
   console.log("SESSION:", req.session);
   next();
 });
-// console.log("SESSION_SECRET:", process.env.SESSION_SECRET);
-// app.get("/_debug/set-session", (req, res) => {
-//   req.session.userId = 123;
-//   res.send("Session set!");
-// });
 
-// function requireAuth(req, res, next) {
-//   console.log("SID:", req.sessionID);
-//   console.log("SESSION:", req.session);
-//   console.log(" o_O ", req.session.id );
-//   if (!req.session?.user) {
-//     return res.status(401).json({ error: "Not authenticated" });
-//   }
-//   next();
-// }
 function requireAuth(req, res, next) {
   console.log("SID:", req.sessionID);
   console.log("SESSION:", req.session);
@@ -96,15 +82,7 @@ function requireAuth(req, res, next) {
   next();
 }
 
-// function requireAuth(req, res, next) {
-//   if (!req.session || !req.session.userId) {
-//     return res.status(401).json({
-//       error: "Not authenticated"
-//     });
-//   }
 
-//   next();
-// };//requireAuth
 
 app.get("/protected", requireAuth, (req, res) => {
   res.send(`Hello user ${req.session.user.login}`);
@@ -128,15 +106,6 @@ app.get("/_debug/cookie", (req, res) => {
   });
 });
 
-// app.use(cors({
-//     origin:["https://nasobe.ru",'https://qucu.ru','https://new.qucu.ru','https://madness.qucu.ru','https://send-json.qucu.ru','https://i.ytimg.com','https://comments.qucu.ru','https://amulets-kampuktera.qucu.ru/'],
-  
-//   methods:['POST', 'GET', 'OPTIONS'],
-//   optionsSuccessStatus: 200,
-//   credentials: true,
-//   allowedHeaders: ['Origin', 'Content-Type', 'Accept', 'Authorization']
-
-// }));
 
 
 // Helmet: безопасные заголовки
@@ -148,13 +117,7 @@ app.use(helmet({
 }));
 // app.use(helmet());
 
-// app.use((req, res, next) => {
-//   res.setHeader(
-//     "Content-Security-Policy",
-//     "default-src 'self'; connect-src 'self' https://comments.qucu.ru; style-src 'self' 'unsafe-inline' https://comments.qucu.ru; script-src 'self' 'unsafe-inline' https://comments.qucu.ru;"
-//   );
-//   next();
-// });
+
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
@@ -163,63 +126,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     useDefaults: true,
-//     directives: {
-//       "default-src": ["'self'", "https://qucu.ru"],
-//       "script-src": [
-//         "'self'",
-//         "'unsafe-inline'",
-//         "https://cdn.jsdelivr.net",
-//         "https://comments.qucu.ru",
-//         "https://new.qucu.ru",
-//         "https://github.qucu.ru",
-//         "https://nasobe.ru",
-//         "https://qucu.ru",
-//         "https://qucu.ru/landing-page"
-//       ],
-//       "style-src": [
-//         "'self'",
-//         "'unsafe-inline'",
-//         "https://cdn.jsdelivr.net",
-//         "https://comments.qucu.ru",
-//         "https://new.qucu.ru",
-//         "https://nasobe.ru",
-//         "https://github.qucu.ru",
-//         "https://qucu.ru"
-//       ],
-//       "img-src": [
-//         "'self'",
-//         "data:",
-//         "https://cdn.jsdelivr.net",
-//         "https://qucu.ru",
-//         "https://comments.qucu.ru",
-//         "https://new.qucu.ru",
-//         "https://nasobe.ru",
-//         "https://github.qucu.ru"
-//       ],
-//       "connect-src": [
-//         "'self'",
-//         "https://cdn.jsdelivr.net",
-//         "https://comments.qucu.ru",
-//         "https://new.qucu.ru",
-//         "https://qucu.ru",
-//         "https://nasobe.ru",
-//         "https://github.qucu.ru"
-//       ],
-//       "script-src-elem": [
-//       "'self'",
-//       "https://challenges.cloudflare.com",
-//       "https://cdn.jsdelivr.net",
-//       "https://comments.qucu.ru",
-//       "https://new.qucu.ru" // добавили
-//     ],
-//       "frame-ancestors": ["'self'", "https://cdn.jsdelivr.net","https://nasobe.ru","https://qucu.ru","https://qucu.ru/landing-page", "https://comments.qucu.ru", "https://new.qucu.ru"],
-//       "object-src": ["'none'"]
-//     }
-//   })
-// );
+
 
 app.use(
   helmet.contentSecurityPolicy({
@@ -288,44 +195,6 @@ app.use(
     }
   })
 );
-// app.use(
-//   helmet.contentSecurityPolicy({
-//     directives: {
-//       defaultSrc: ["'self'"],
-
-//       scriptSrc: [
-//         "'self'",
-//         "https://challenges.cloudflare.com"
-//       ],
-
-//       styleSrc: [
-//         "'self'",
-//         "'unsafe-inline'" // если EJS / inline стили
-//       ],
-
-//       imgSrc: [
-//         "'self'",
-//         "data:",
-//         "https:"
-//       ],
-
-//       connectSrc: [
-//         "'self'",
-//         "https://new.qucu.ru",
-//         "https://comments.qucu.ru"
-//       ],
-
-//       frameSrc: [
-//         "https://challenges.cloudflare.com"
-//       ],
-
-//       objectSrc: ["'none'"],
-//       baseUri: ["'self'"],
-//       formAction: ["'self'"],
-//       frameAncestors: ["'none'"]
-//     }
-//   })
-// );
 
 
 //requireAuth,
