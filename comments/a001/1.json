@@ -1,5 +1,11 @@
 [
-
+  {
+    "name": "Amir",
+    "date": "Mon Apr 06 2026 15:26:13 GMT+0700 (Krasnoyarsk Standard Time)",
+    "loc": "https://qucu.ru/",
+    "id": "a001",
+    "message": "hi everyone"
+  },
   {
     "name": "ChikChicly",
     "date": "Thu Apr 02 2026 10:20:10 GMT+0700 (Krasnoyarsk Standard Time)",
