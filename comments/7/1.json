@@ -1,66 +1,24 @@
 [
   {
-    "name": "Lucky",
-    "date": "Wed Apr 08 2026 08:16:01 GMT+0700 (Krasnoyarsk Standard Time)",
+    "name": "SuperHero",
+    "date": "Wed Apr 08 2026 18:50:16 GMT+0700 (Krasnoyarsk Standard Time)",
     "loc": "https://comments.qucu.ru/",
     "id": "7",
-    "message": "oK"
+    "message": "Cool"
+  },
+  {
+    "name": "Batman",
+    "date": "Wed Apr 08 2026 17:35:59 GMT+0700 (Krasnoyarsk Standard Time)",
+    "loc": "https://comments.qucu.ru/",
+    "id": "7",
+    "message": "Ow  "
   },
   {
     "name": "Amir",
-    "date": "Mon Apr 06 2026 15:26:42 GMT+0700 (Krasnoyarsk Standard Time)",
+    "date": "Wed Apr 08 2026 15:16:52 GMT+0700 (Krasnoyarsk Standard Time)",
     "loc": "https://comments.qucu.ru/",
     "id": "7",
-    "message": "!!!!!!!!!!!!1"
-  },
-  {
-    "name": "Lucky",
-    "date": "Mon Apr 06 2026 15:22:28 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://comments.qucu.ru/",
-    "id": "7",
-    "message": "hi   "
-  },
-  {
-    "name": "ChikChicly",
-    "date": "Sat Apr 04 2026 07:24:17 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://comments.qucu.ru/",
-    "id": "7",
-    "message": "sucesseful login"
-  },
-  {
-    "name": "Lucky",
-    "date": "Fri Apr 03 2026 16:49:07 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://comments.qucu.ru/",
-    "id": "7",
-    "message": "oK"
-  },
-  {
-    "name": "Lucky",
-    "date": "Fri Apr 03 2026 16:03:26 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://comments.qucu.ru/",
-    "id": "7",
-    "message": "hi"
-  },
-  {
-    "name": "Lucky",
-    "date": "Fri Apr 03 2026 09:50:55 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://github.qucu.ru/",
-    "id": "7",
-    "message": "oK, it'a working!"
-  },
-  {
-    "name": "Admin",
-    "date": "Wed Apr 01 2026 08:12:01 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://comments.qucu.ru/",
-    "id": "7",
-    "message": "yes, of course. All working!"
-  },
-  {
-    "name": "ChikChicly",
-    "date": "Wed Apr 01 2026 06:29:06 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://comments.qucu.ru/",
-    "id": "7",
-    "message": "oK, it's working!"
+    "message": "oK   "
   },
   {
     "name": "Admin",

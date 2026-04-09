@@ -1,38 +1,10 @@
 [
   {
-    "name": "Amir",
-    "date": "Wed Apr 08 2026 08:20:31 GMT+0700 (Krasnoyarsk Standard Time)",
+    "name": "Batman",
+    "date": "Wed Apr 08 2026 17:40:19 GMT+0700 (Krasnoyarsk Standard Time)",
     "loc": "https://qucu.ru/",
     "id": "a001",
-    "message": "well, oK!"
-  },
-  {
-    "name": "Amir",
-    "date": "Mon Apr 06 2026 15:26:13 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://qucu.ru/",
-    "id": "a001",
-    "message": "hi everyone"
-  },
-  {
-    "name": "ChikChicly",
-    "date": "Thu Apr 02 2026 10:20:10 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://qucu.ru/",
-    "id": "a001",
-    "message": "oK, it's working!"
-  },
-  {
-    "name": "ChikChicly",
-    "date": "Sun Mar 29 2026 16:33:26 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://qucu.ru/",
-    "id": "a001",
-    "message": "That have new Cors and this code working"
-  },
-  {
-    "name": "Lucky",
-    "date": "Sun Mar 29 2026 10:44:47 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://qucu.ru/",
-    "id": "a001",
-    "message": "Good morning, everyone. hawe a great day and magical mood!"
+    "message": "oK"
   },
   {
     "name": "Amir",

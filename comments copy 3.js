@@ -16,19 +16,21 @@ const myCors = require("./modules/cors");
 const app = express();
 const port = 3000
 
+const cors = require('cors');
+app.use(myCors);// myCors!!!!!!!!!!
+
 const session = require('express-session');
 
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 const jsonParser = express.json();
-const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 
+
 app.use(express.json());
 
-app.use(myCors);// myCors!!!!!!!!!!
 
 const { setFips } = require('crypto');
 
@@ -38,6 +40,17 @@ app.set('views','public');
 app.set("view engine", "ejs");
 app.use(express.static('public'));
 app.set('trust proxy', 1);
+
+
+app.use(express.static('public', {
+  setHeaders: (res, path) => {
+    const origin = res.req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+      res.setHeader("Access-Control-Allow-Origin", origin);
+      res.setHeader("Access-Control-Allow-Credentials", "true");
+    }
+  }
+}));
 
 const requestLimiter = rateLimit({
   windowMs: 60 * 1000,
@@ -55,7 +68,6 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   name: "connect.sid",
-  rolling:true,
   cookie: {
     domain: ".qucu.ru",
     secure: true,
@@ -83,7 +95,10 @@ function requireAuth(req, res, next) {
   next();
 }
 
-
+app.use((req, res, next) => {
+  console.log("Origin:", req.headers.origin);
+  next();
+});
 
 app.get("/protected", requireAuth, (req, res) => {
   res.send(`Hello user ${req.session.user.login}`);
@@ -174,8 +189,7 @@ app.use(
         "https://challenges.cloudflare.com",
         "https://comments.qucu.ru",
         "https://new.qucu.ru",
-        "https://qucu.ru",
-        "https://github.qucu.ru"
+        "https://qucu.ru"
       ],
 
       // 🔥 ВОТ КЛЮЧЕВОЙ МОМЕНТ
@@ -190,8 +204,7 @@ app.use(
         "https://send-json.qucu.ru/",
         "https://qucu.ru",
         "https://comments.qucu.ru",
-        "https://new.qucu.ru",
-        "https://github.qucu.ru"
+        "https://new.qucu.ru"
       ],
 
       "object-src": ["'none'"]
@@ -258,30 +271,12 @@ app.post('/allow-cors',jsonParser,(request,response)=>{
 
 //style CSS
 app.get("/style", (req, res) => {
-  const origin = req.headers.origin;
-  const allowedOrigins = [
-    "https://nasobe.ru",
-    "https://qucu.ru",
-    "https://new.qucu.ru",
-    "https://github.qucu.ru"
-  ];
-
-  if (allowedOrigins.includes(origin)) {
-    res.header("Access-Control-Allow-Origin", origin);
-    res.header("Access-Control-Allow-Methods", "GET, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-Credentials", "true");
-  }
-
   fs.readFile("public/web-workshop.css", "utf8", (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.sendStatus(500);
-    }
+    if (err) return res.sendStatus(500);
     res.type("text/css").send(data);
   });
 });
-// app.get("/style", (req, res) => {
+// const newLocal = app.get("/style", (req, res) => {
 //   console.log("ORIGIN:", req.headers.origin);
 //   const origin = req.headers.origin;
 //   const allowedOrigins = [
@@ -375,7 +370,6 @@ app.post("/login3-proxy", async (req, res) => {
     });
   }
 });
-
 
 app.post("/login3-proxy-captcha", async (req, res) => {
   try {
