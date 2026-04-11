@@ -26,9 +26,10 @@ const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 
-app.use(express.json());
 
 app.use(myCors);// myCors!!!!!!!!!!
+// app.options('*', myCors);
+app.use(express.json());
 
 const { setFips } = require('crypto');
 
@@ -175,7 +176,8 @@ app.use(
         "https://comments.qucu.ru",
         "https://new.qucu.ru",
         "https://qucu.ru",
-        "https://github.qucu.ru"
+        "https://github.qucu.ru",
+        "https://nasobe.ru"
       ],
 
       // 🔥 ВОТ КЛЮЧЕВОЙ МОМЕНТ
@@ -257,27 +259,33 @@ app.post('/allow-cors',jsonParser,(request,response)=>{
 });// SCRIPT JS
 
 //style CSS
+// app.get("/style", (req, res) => {
+//   const origin = req.headers.origin;
+//   const allowedOrigins = [
+//     "https://nasobe.ru",
+//     "https://qucu.ru",
+//     "https://new.qucu.ru",
+//     "https://github.qucu.ru"
+//   ];
+
+//   if (allowedOrigins.includes(origin)) {
+//     res.header("Access-Control-Allow-Origin", origin);
+//     res.header("Access-Control-Allow-Methods", "GET, OPTIONS");
+//     res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization");
+//     res.header("Access-Control-Allow-Credentials", "true");
+//   }
+
+//   fs.readFile("public/web-workshop.css", "utf8", (err, data) => {
+//     if (err) {
+//       console.error(err);
+//       return res.sendStatus(500);
+//     }
+//     res.type("text/css").send(data);
+//   });
+// });
 app.get("/style", (req, res) => {
-  const origin = req.headers.origin;
-  const allowedOrigins = [
-    "https://nasobe.ru",
-    "https://qucu.ru",
-    "https://new.qucu.ru",
-    "https://github.qucu.ru"
-  ];
-
-  if (allowedOrigins.includes(origin)) {
-    res.header("Access-Control-Allow-Origin", origin);
-    res.header("Access-Control-Allow-Methods", "GET, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-Credentials", "true");
-  }
-
   fs.readFile("public/web-workshop.css", "utf8", (err, data) => {
-    if (err) {
-      console.error(err);
-      return res.sendStatus(500);
-    }
+    if (err) return res.sendStatus(500);
     res.type("text/css").send(data);
   });
 });
