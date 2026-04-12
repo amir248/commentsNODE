@@ -49,7 +49,7 @@ const requestLimiter = rateLimit({
 const registerUrl=['https://qucu.ru'];
 // const whitelist = ['https://qucu.ru'];
 
-
+// app.set('trust proxy', 1);
 
 app.use(session({
   secret: process.env.SESSION_SECRET || "ONE_SECRET_FOR_ALL_SUBDOMAINS",

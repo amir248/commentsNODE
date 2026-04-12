@@ -1,5 +1,5 @@
 // добавляем имя из LocalStorage
-  const savedUser = localStorage.getItem("username");
+  let savedUser = localStorage.getItem("username");
 // const id;
 let id =ID_FROM_SERVER;
 const d=new Date();
@@ -25,7 +25,7 @@ if(strType==2){
 }
 // console.log(type);
 // let id="a111";
-if(!savedUser){
+if(!localStorage.getItem("username")){
   const authorizationForm=document.createElement("form");
   // authorizationForm.setAttribute('id','permission');
   authorizationForm.classList.add("permission");
@@ -76,21 +76,7 @@ if(!savedUser){
 }else{
   // console.log('non');
   // Если есть, выводим логин вверху
-  const userDisplay = document.createElement("div");
-  userDisplay.textContent = `Привет, ${savedUser}!`;
-  userDisplay.style.fontWeight = "bold";
-  userDisplay.style.marginBottom = "10px";
-  document.querySelector("#comments").prepend(userDisplay);
-
-  const logOutBtn=document.createElement("span");
-  logOutBtn.setAttribute("id","logOutBtn");
-  logOutBtn.classList.add("logOut");
-  logOutBtn.textContent="👋";
-  logOutBtn.setAttribute("title","logOut");
-  document.querySelector("#comments > div").append(logOutBtn);
-  if (logOutBtn) {
-    document.getElementById("logOutBtn").addEventListener("click", logOutUser);
-  }
+ bye();
 }
 const form=document.createElement('form');
 form.classList.add('formWebWorkshop');
@@ -180,12 +166,6 @@ async function loadComments() {
     // контейнер для вывода
     const list = document.getElementById("comments-list");
     list.innerHTML = ""; // очищаем перед выводом
-    // comments.forEach(c => {
-    //   const item = document.createElement("div");
-    //   item.classList.add("comment");
-    //   item.innerHTML = `<p><b>${c.name}</b>: ${c.message}</p> <span> ${c.date}</span>` ;
-    //   list.appendChild(item);
-    // });
     comments.forEach(c => {
       const item = document.createElement("div");
       item.classList.add("comment");
@@ -221,41 +201,6 @@ function keyTestSubject(){
   }
 }
 
-
-
-// async function doLogin() {
-//   const login = document.getElementById("login").value;
-//   const password = document.getElementById("password").value;
-
-//   if(!loginCaptchaToken){
-//     alert("Пройдите капчу для входа");
-//     return;
-//   }
-
-//   try {
-//     const res = await fetch("https://comments.qucu.ru/login3-proxy-captcha", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       credentials: "include",
-//       body: JSON.stringify({
-//         login, password,
-//         "cf-turnstile-response": loginCaptchaToken
-//       })
-//     });
-
-//     loginCaptchaToken = null; // токен одноразовый
-//     turnstile.reset(cloudFlaresLogin); // сброс виджета
-
-//     const data = await res.json();
-//     if(res.ok){
-//       localStorage.setItem("username", login);
-//       document.querySelector(".permission").remove();
-//       checkProfile();
-//       alert("Успешный вход!");
-//     } else alert(data.message || "Ошибка входа");
-
-//   } catch(err){ console.error(err); }
-// }//doLogin
 
 async function doLogin() {
   const login = document.getElementById("login").value;
@@ -322,10 +267,7 @@ async function logOutUser() {
   console.log("logout");
   try {
     // console.log('logout');
-    // localStorage.removeItem("username");
-    // setTimeout(window.location.href="/",777);
-    // 1️⃣ Отправляем запрос на сервер комментариев
-    //https://new.qucu.ru/logout
+  
     const response = await fetch("https://comments.qucu.ru/logout", {
       method: "POST",
       credentials: "include", // важно для сессий
@@ -352,9 +294,26 @@ async function logOutUser() {
     console.error("Ошибка при logout:", err);
   }
 }
-// document.addEventListener("DOMContentLoaded", () => {
-  // весь код, который навешивает addEventListener
-  
-// });
 
 
+
+
+function bye(){
+    let  savedUser = localStorage.getItem("username"); // 🔥 всегда актуально
+    const userDisplay = document.createElement("div");
+    userDisplay.textContent = `Привет, ${savedUser}!`;
+    userDisplay.style.fontWeight = "bold";
+    userDisplay.style.marginBottom = "10px";
+    document.querySelector("#comments").append(userDisplay);
+
+    const logOutBtn=document.createElement("span");
+    logOutBtn.setAttribute("id","logOutBtn");
+    logOutBtn.classList.add("logOut");
+    logOutBtn.textContent="👋";
+    logOutBtn.setAttribute("title","logOut");
+    document.querySelector("#comments > div").append(logOutBtn);
+    if (logOutBtn) {
+        document.getElementById("logOutBtn").addEventListener("click", logOutUser);
+    }
+    // localStorage.setItem("username", login);
+}//bye();

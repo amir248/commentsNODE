@@ -1,5 +1,5 @@
 // добавляем имя из LocalStorage
-  const savedUser = localStorage.getItem("username");
+  let savedUser = localStorage.getItem("username");
 // const id;
 let id =ID_FROM_SERVER;
 const d=new Date();
@@ -25,7 +25,7 @@ if(strType==2){
 }
 // console.log(type);
 // let id="a111";
-if(!savedUser){
+if(!localStorage.getItem("username")){
   const authorizationForm=document.createElement("form");
   // authorizationForm.setAttribute('id','permission');
   authorizationForm.classList.add("permission");
@@ -62,21 +62,7 @@ if(!savedUser){
 }else{
   // console.log('non');
   // Если есть, выводим логин вверху
-  const userDisplay = document.createElement("div");
-  userDisplay.textContent = `Привет, ${savedUser}!`;
-  userDisplay.style.fontWeight = "bold";
-  userDisplay.style.marginBottom = "10px";
-  document.querySelector("#comments").prepend(userDisplay);
-
-  const logOutBtn=document.createElement("span");
-  logOutBtn.setAttribute("id","logOutBtn");
-  logOutBtn.classList.add("logOut");
-  logOutBtn.textContent="👋";
-  logOutBtn.setAttribute("title","logOut");
-  document.querySelector("#comments > div").append(logOutBtn);
-  if (logOutBtn) {
-    document.getElementById("logOutBtn").addEventListener("click", logOutUser);
-  }
+ bye();
 }
 const form=document.createElement('form');
 form.classList.add('formWebWorkshop');
@@ -306,3 +292,22 @@ async function logOutUser() {
 // });
 
 
+function bye(){
+    let  savedUser = localStorage.getItem("username"); // 🔥 всегда актуально
+    const userDisplay = document.createElement("div");
+    userDisplay.textContent = `Привет, ${savedUser}!`;
+    userDisplay.style.fontWeight = "bold";
+    userDisplay.style.marginBottom = "10px";
+    document.querySelector("#comments").append(userDisplay);
+
+    const logOutBtn=document.createElement("span");
+    logOutBtn.setAttribute("id","logOutBtn");
+    logOutBtn.classList.add("logOut");
+    logOutBtn.textContent="👋";
+    logOutBtn.setAttribute("title","logOut");
+    document.querySelector("#comments > div").append(logOutBtn);
+    if (logOutBtn) {
+        document.getElementById("logOutBtn").addEventListener("click", logOutUser);
+    }
+    // localStorage.setItem("username", login);
+}//bye();
