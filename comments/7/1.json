@@ -1,19 +1,5 @@
 [
   {
-    "name": "Batman",
-    "date": "Sat Apr 11 2026 20:52:21 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://comments.qucu.ru/",
-    "id": "7",
-    "message": "777"
-  },
-  {
-    "name": "Admin",
-    "date": "Sat Apr 11 2026 20:50:10 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://comments.qucu.ru/",
-    "id": "7",
-    "message": ")))"
-  },
-  {
     "name": "ChikChicly",
     "date": "Fri Apr 10 2026 07:42:47 GMT+0700 (Krasnoyarsk Standard Time)",
     "loc": "https://comments.qucu.ru/",
@@ -54,34 +40,6 @@
     "loc": "https://comments.qucu.ru/",
     "id": "7",
     "message": "Good morning, everyone. hawe a great day and magical mood! "
-  },
-  {
-    "name": "Amir",
-    "date": "Sat Mar 28 2026 05:52:20 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://comments.qucu.ru/",
-    "id": "7",
-    "message": "🤓 it's working. Welly well."
-  },
-  {
-    "name": "m",
-    "date": "Fri Mar 20 2026 20:14:45 GMT+0500 (Казахстан)",
-    "loc": "https://comments.qucu.ru/",
-    "id": "7",
-    "message": "<script>alert(\"1\")</script>"
-  },
-  {
-    "name": "m",
-    "date": "Fri Mar 20 2026 20:09:07 GMT+0500 (Казахстан)",
-    "loc": "https://comments.qucu.ru/",
-    "id": "7",
-    "message": "<iframe src=\"https://www.youtube.com/watch?v=VcqSOK1Z4Bw\" width=\"100%\" height=\"100%\"></iframe>"
-  },
-  {
-    "name": "m",
-    "date": "Fri Mar 20 2026 20:09:07 GMT+0500 (Казахстан)",
-    "loc": "https://comments.qucu.ru/",
-    "id": "7",
-    "message": "<button onclick=\"window.open('https://example.com', '_blank')\">   Test window.open </button>"
   },
   {
     "name": "БЕконЧик",
