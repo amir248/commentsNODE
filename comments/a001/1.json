@@ -1,27 +1,6 @@
 [
   {
     "name": "Lucky",
-    "date": "Mon Apr 13 2026 08:49:46 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://qucu.ru/",
-    "id": "a001",
-    "message": "😆 "
-  },
-  {
-    "name": "Batman",
-    "date": "Mon Apr 13 2026 08:04:14 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://qucu.ru/",
-    "id": "a001",
-    "message": "Hooray!"
-  },
-  {
-    "name": "Amir",
-    "date": "Tue Mar 24 2026 09:43:35 GMT+0700 (Krasnoyarsk Standard Time)",
-    "loc": "https://qucu.ru/",
-    "id": "a001",
-    "message": "Well, it's good that everything works stably!"
-  },
-  {
-    "name": "Lucky",
     "date": "Sun Mar 22 2026 09:55:56 GMT+0700 (Krasnoyarsk Standard Time)",
     "loc": "https://qucu.ru/",
     "id": "a001",
