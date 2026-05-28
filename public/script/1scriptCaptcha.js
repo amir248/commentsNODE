@@ -70,7 +70,7 @@ if(!localStorage.getItem("username")){
   document.querySelector(".login").append(push);
   const register=document.createElement("a");
   register.setAttribute("title","Registarion");
-  register.href="https://new.qucu.ru/register";
+  register.href="https://qucu.ru/register";
   register.textContent="🪄";
   document.querySelector(".login").append(register);
 }else{
@@ -118,7 +118,7 @@ forma.addEventListener("submit", async (e) => {
   
   
   try {
-    const response = await fetch("https://comments.qucu.ru/"+`${id}`+`${type}`, {
+    const response = await fetch("https://qucu.ru/"+`${id}`+`${type}`, {
       method: "POST",
       credentials: "include", // 🔥 ОБЯЗАТЕЛЬНО
       headers: {
@@ -160,7 +160,7 @@ function escapeHTML(str) {
 
 async function loadComments() {
   try {
-    const response = await fetch("https://comments.qucu.ru/"+`${id}`+`${type}`);
+    const response = await fetch("https://qucu.ru/"+`${id}`+`${type}`);
     if (!response.ok) throw new Error("Ошибка загрузки комментариев");
     const comments = await response.json();
     // контейнер для вывода
@@ -212,7 +212,7 @@ async function doLogin() {
   }
 
   try {
-    const res = await fetch("https://comments.qucu.ru/login3-proxy-captcha", {
+    const res = await fetch("https://qucu.ru/login3-proxy-captcha", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -246,7 +246,7 @@ async function doLogin() {
 
 
 async function checkProfile() {
-  const res = await fetch("https://new.qucu.ru/profile3", {
+  const res = await fetch("https://qucu.ru/profile3", {
     method: "GET",
     credentials: "include"  // <- тоже важно
   });
@@ -268,7 +268,7 @@ async function logOutUser() {
   try {
     // console.log('logout');
   
-    const response = await fetch("https://comments.qucu.ru/logout", {
+    const response = await fetch("https://qucu.ru/logout", {
       method: "POST",
       credentials: "include", // важно для сессий
     });

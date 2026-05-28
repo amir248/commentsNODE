@@ -14,7 +14,7 @@ const express = require('express');
 const myCors = require("./modules/cors");
 
 const app = express();
-const port = 3000
+const port = 3000;
 
 const session = require('express-session');
 
@@ -225,11 +225,7 @@ app.use('/blozh', limiter);
 app.use('/bozhik', limiter);
 app.use('/a000', limiter);
 
-// res.cookie('twk_uuid', 'значение', {
-//   httpOnly: true,     // доступно только серверу
-//   secure: true,       // работает только через HTTPS
-//   sameSite: 'None'    // разрешает кросс-доменные запросы
-// });
+
 
 // cors(),
 app.post("/getIp",jsonParser,(request,response)=>{
@@ -258,59 +254,13 @@ app.post('/allow-cors',jsonParser,(request,response)=>{
   // console.log(scriptComments);
 });// SCRIPT JS
 
-//style CSS
-// app.get("/style", (req, res) => {
-//   const origin = req.headers.origin;
-//   const allowedOrigins = [
-//     "https://nasobe.ru",
-//     "https://qucu.ru",
-//     "https://new.qucu.ru",
-//     "https://github.qucu.ru"
-//   ];
-
-//   if (allowedOrigins.includes(origin)) {
-//     res.header("Access-Control-Allow-Origin", origin);
-//     res.header("Access-Control-Allow-Methods", "GET, OPTIONS");
-//     res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization");
-//     res.header("Access-Control-Allow-Credentials", "true");
-//   }
-
-//   fs.readFile("public/web-workshop.css", "utf8", (err, data) => {
-//     if (err) {
-//       console.error(err);
-//       return res.sendStatus(500);
-//     }
-//     res.type("text/css").send(data);
-//   });
-// });
 app.get("/style", (req, res) => {
   fs.readFile("public/web-workshop.css", "utf8", (err, data) => {
     if (err) return res.sendStatus(500);
     res.type("text/css").send(data);
   });
 });
-// app.get("/style", (req, res) => {
-//   console.log("ORIGIN:", req.headers.origin);
-//   const origin = req.headers.origin;
-//   const allowedOrigins = [
-//     "https://nasobe.ru",
-//     "https://qucu.ru",
-//     "https://new.qucu.ru",
-//     "https://github.qucu.ru"
-//   ];
 
-//   if (allowedOrigins.includes(origin)) {
-//     res.header("Access-Control-Allow-Origin", origin);
-//     res.header("Access-Control-Allow-Methods", "GET, OPTIONS");
-//     res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization");
-//     res.header("Access-Control-Allow-Credentials", "true");
-//   }
-//   // res.sendStatus(204); // No Content
-//   fs.readFile("public/web-workshop.css", "utf8", (err, data) => {
-//     if (err) return res.sendStatus(500);
-//     res.type("text/css").send(data);
-//   });
-// });
 
 // Скрипт без капчи
 app.get("/no-captcha/:id", (req, res) => {
